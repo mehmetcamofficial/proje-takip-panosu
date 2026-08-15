@@ -46,14 +46,22 @@ proje-takip-panosu/
   "desc": "Bir-iki cümlelik açıklama",
   "progress": 0-100 veya null,
   "repoNote": "Kod/veri nerede duruyor (opsiyonel açıklama)",
-  "phases": { "done": [], "doing": [], "todo": [] },
-  "issues": [ { "severity": "high", "title": "...", "note": "..." } ],
-  "integrations": [ { "name": "...", "status": "green", "label": "..." } ],
+  "phases": { "done": [...], "doing": [...], "todo": [...] },
+  "issues": [ { "severity": "high|med|low", "title": "...", "note": "..." } ],
+  "integrations": [ { "name": "...", "status": "green|yellow|red|gray", "label": "..." } ],
   "changelog": [ { "date": "...", "title": "...", "body": "..." } ]
 }
 ```
 
 `phases.*` dizilerindeki her öğe `{ "title": "...", "tag": "opsiyonel-etiket" }` şeklindedir.
+
+## Tasarım hakkında
+
+Pano, "atmosfer içinde uçuş" temalı immersive bir tasarıma sahip: arka planda kendi yazdığımız 3B bulut motoru (Canvas 2D üzerinde gerçek perspektif projeksiyonu) sürekli ileri doğru uçar, kaydırdıkça hızlanır, fare hareketiyle kamera hafifçe döner. Gökyüzü rengi sayfa aşağı indikçe derin maviden açık maviye geçer. İçerik, gökyüzünün üzerinde duran buzlu cam (frosted glass) paneller halinde sunulur; kartlar fareyle 3B eğilir, bölümler görünürken yumuşakça belirir, kaydırma ataletlidir. Sağ üstteki çizgiler proje menüsüdür — üzerine gelince açılır.
+
+**Önemli:** 3B sahne hiçbir dış kütüphane kullanmaz (Three.js vb. yok) — tamamen `index.html` içindedir, bu yüzden CDN kesintisinden etkilenmez. Tek dış kaynak Google Fonts'tan gelen başlık fontlarıdır (Playfair Display + Inter); yüklenemezse sistem fontlarına düşer, sayfa bozulmaz.
+
+Mobil cihazlarda ve işletim sisteminde "hareketi azalt" (reduced motion) ayarı açık olan kullanıcılarda ağır efektler otomatik devre dışı kalır.
 
 ## Yerelde önizleme
 
