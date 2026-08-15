@@ -3,37 +3,87 @@
   "name": "Iglesias WhatsApp Chatbot — Gateway API",
   "statusLabel": "İskelet / Erken Aşama",
   "statusColor": "yellow",
+  "visual": "bridge",
   "desc": "FastAPI ile yazılan, gerçek WhatsApp (Meta Cloud API) ile n8n arasında köprü olması planlanan Python servisi. Bilgisayarda ~/Developer/iglesias-whatsapp-chatbot klasöründe bulundu ve GitHub'a push edilmiş durumda.",
   "progress": 25,
   "repoNote": "GitHub: iglesiastour/iglesias-whatsapp-chatbot (private/public durumu bu oturumda doğrulanmadı)",
   "phases": {
     "done": [
-      { "title": "FastAPI iskeleti kuruldu — GET /health, POST /api/v1/messages/test, POST /api/v1/messages/process", "tag": "FastAPI" },
-      { "title": "n8n'e mesaj yönlendirme (forward_to_n8n) yazıldı: timeout/502/503/504 hata yönetimi ile", "tag": "n8n köprüsü" },
-      { "title": "Telefon numarası loglarda maskeleniyor (mask_phone)", "tag": "Güvenlik" },
-      { "title": "Pytest test paketi — n8n mock'lanıyor, gerçek webhook hiç çağrılmıyor", "tag": "Test" },
-      { "title": "main branch GitHub'a push edilmiş (2 commit, temiz working tree)", "tag": "Git" }
+      {
+        "title": "FastAPI iskeleti kuruldu — GET /health, POST /api/v1/messages/test, POST /api/v1/messages/process",
+        "tag": "FastAPI"
+      },
+      {
+        "title": "n8n'e mesaj yönlendirme (forward_to_n8n) yazıldı: timeout/502/503/504 hata yönetimi ile",
+        "tag": "n8n köprüsü"
+      },
+      {
+        "title": "Telefon numarası loglarda maskeleniyor (mask_phone)",
+        "tag": "Güvenlik"
+      },
+      {
+        "title": "Pytest test paketi — n8n mock'lanıyor, gerçek webhook hiç çağrılmıyor",
+        "tag": "Test"
+      },
+      {
+        "title": "main branch GitHub'a push edilmiş (2 commit, temiz working tree)",
+        "tag": "Git"
+      }
     ],
     "doing": [
-      { "title": "N8N_WEBHOOK_URL değerinin n8n'in gerçek (production) webhook'una bağlanması" }
+      {
+        "title": "N8N_WEBHOOK_URL değerinin n8n'in gerçek (production) webhook'una bağlanması"
+      }
     ],
     "todo": [
-      { "title": "Meta WhatsApp Cloud API bağlantısı — WHATSAPP_ACCESS_TOKEN, PHONE_NUMBER_ID, VERIFY_TOKEN şu an sadece placeholder" },
-      { "title": "Meta'nın webhook doğrulama (GET verify challenge) endpoint'inin eklenmesi" },
-      { "title": "Servisin production'a deploy edilmesi (ör. Render/Vercel — henüz belli değil)" },
-      { "title": "OPENAI_API_KEY / GOOGLE_SHEETS_ID değişkenlerinin rolünün netleştirilmesi (şu an kod içinde tanımlı ama kullanılmıyor, n8n arkada kalmaya devam mı edecek?)" }
+      {
+        "title": "Meta WhatsApp Cloud API bağlantısı — WHATSAPP_ACCESS_TOKEN, PHONE_NUMBER_ID, VERIFY_TOKEN şu an sadece placeholder"
+      },
+      {
+        "title": "Meta'nın webhook doğrulama (GET verify challenge) endpoint'inin eklenmesi"
+      },
+      {
+        "title": "Servisin production'a deploy edilmesi (ör. Render/Vercel — henüz belli değil)"
+      },
+      {
+        "title": "OPENAI_API_KEY / GOOGLE_SHEETS_ID değişkenlerinin rolünün netleştirilmesi (şu an kod içinde tanımlı ama kullanılmıyor, n8n arkada kalmaya devam mı edecek?)"
+      }
     ]
   },
   "issues": [
-    { "severity": "med", "title": "Meta WhatsApp bağlantısı hiç yok", "note": "WHATSAPP_* ortam değişkenleri kod içinde \"Unused placeholder for future Meta integration\" olarak işaretli" },
-    { "severity": "low", "title": "Production'a henüz deploy edilmemiş görünüyor", "note": "Sadece yerel geliştirme aşamasında (uvicorn --reload)" }
+    {
+      "severity": "med",
+      "title": "Meta WhatsApp bağlantısı hiç yok",
+      "note": "WHATSAPP_* ortam değişkenleri kod içinde \"Unused placeholder for future Meta integration\" olarak işaretli"
+    },
+    {
+      "severity": "low",
+      "title": "Production'a henüz deploy edilmemiş görünüyor",
+      "note": "Sadece yerel geliştirme aşamasında (uvicorn --reload)"
+    }
   ],
   "integrations": [
-    { "name": "n8n webhook (forward)", "status": "yellow", "label": "Kodlandı, uçtan uca doğrulanmadı" },
-    { "name": "Meta WhatsApp Cloud API", "status": "red", "label": "Yok" },
-    { "name": "GitHub", "status": "green", "label": "Push edilmiş" }
+    {
+      "name": "n8n webhook (forward)",
+      "status": "yellow",
+      "label": "Kodlandı, uçtan uca doğrulanmadı"
+    },
+    {
+      "name": "Meta WhatsApp Cloud API",
+      "status": "red",
+      "label": "Yok"
+    },
+    {
+      "name": "GitHub",
+      "status": "green",
+      "label": "Push edilmiş"
+    }
   ],
   "changelog": [
-    { "date": "15 Ağustos 2026", "title": "Repo keşfedildi ve incelendi", "body": "Bilgisayardaki ~/Developer/iglesias-whatsapp-chatbot klasöründe bulundu. README ve kaynak kod (config.py, routes/messages.py, services/n8n_client.py, models/message.py) okundu. n8n analiziyle karşılaştırıldı: bu servis, n8n'in gerçek WhatsApp'a bağlı olmama sorununu çözmek için planlanan köprü katmanı — henüz Meta tarafı eklenmemiş." }
+    {
+      "date": "15 Ağustos 2026",
+      "title": "Repo keşfedildi ve incelendi",
+      "body": "Bilgisayardaki ~/Developer/iglesias-whatsapp-chatbot klasöründe bulundu. README ve kaynak kod (config.py, routes/messages.py, services/n8n_client.py, models/message.py) okundu. n8n analiziyle karşılaştırıldı: bu servis, n8n'in gerçek WhatsApp'a bağlı olmama sorununu çözmek için planlanan köprü katmanı — henüz Meta tarafı eklenmemiş."
+    }
   ]
 }

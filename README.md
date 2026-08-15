@@ -66,6 +66,12 @@ Pano, Robin Payot ve Atmos tarzı immersive bir **yol yolculuğu** olarak kurgul
 - Sol kenardaki dikey şerit durak göstergesidir — üzerine gelince proje isimleri açılır, tıklayınca o durağa gider. Sağ üstte "kaçıncı duraktasınız" sayacı vardır.
 - Fare hareketiyle kamera hafifçe döner, gökyüzü yol ilerledikçe derin maviden açık maviye geçer.
 
+Her kartın üstünde projeye özel, izometrik çizilmiş bir **3B görsel** vardır (sohbet balonları, köprü, katmanlı panel, ağ, pencereler). Görsel projenin durum rengini alır ve hafifçe süzülür. Hangi görselin kullanılacağı proje JSON'undaki `visual` alanıyla belirlenir: `chat`, `bridge`, `dashboard`, `network`, `windows`.
+
+Yolun sonunda **Iglesias Tour Turkey finali** vardır: bulutların arasından yükselen klasik bir tapınak cephesi (Efes teması) ve önünde şirket adı, kısa tanıtım ile toplam proje / tamamlandı / yapılıyor / planlanan sayıları. Sunum için tasarlanmıştır.
+
+**Kuşbakışı modu:** sağ üstteki "Kuşbakışı" düğmesi (veya finaldeki "Kuşbakışı gör") tüm yolu yukarıdan gösteren bir harita açar — duraklar numaralı ve durum renginde, isim/durum/yüzde etiketleriyle, "ŞU AN" konum işaretiyle birlikte. Bir durağa tıklayınca harita kapanır ve yol o durağa gider. `Esc` ile de kapanır.
+
 Mobilde 3B yol yerine aynı durakların dikey bir listesi gösterilir; karta dokununca aynı detay paneli açılır.
 
 **Önemli:** 3B sahne hiçbir dış kütüphane kullanmaz (Three.js vb. yok) — tamamen `index.html` içindedir, bu yüzden CDN kesintisinden etkilenmez. Tek dış kaynak Google Fonts'tan gelen başlık fontlarıdır (Playfair Display + Inter); yüklenemezse sistem fontlarına düşer, sayfa bozulmaz.

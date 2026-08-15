@@ -3,34 +3,79 @@
   "name": "TourPilot Platformu",
   "statusLabel": "v1.0.0 — Production",
   "statusColor": "green",
+  "visual": "dashboard",
   "desc": "Iglesias Tour Turkey için CRM, teklif/tur/operasyon yönetimi, muhasebe ve AI destekli ana platform (React/TypeScript/Vite + Node/Express + PostgreSQL/Neon + Clerk Auth). Bu tracker kapsamında sadece WhatsApp entegrasyon noktası (communications webhook) detaylı incelendi — platformun geri kalanı (CRM, muhasebe, operasyon modülleri) çok daha büyük, ayrı bir inceleme gerektiriyor.",
   "progress": null,
   "repoNote": "Yerel klasör: ~/Developer/tourops-ai (pnpm monorepo, .github CI mevcut — GitHub uzak adresi bu oturumda doğrulanmadı)",
   "phases": {
     "done": [
-      { "title": "Platform v1.0.0 olarak üretimde: CRM, teklif, tur katalog, operasyon/rehber atama, muhasebe, AI OCR fiş okuma", "tag": "TourPilot" },
-      { "title": "communications modülü: n8n'den imzalı (HMAC-SHA256) durum event'leri kabul eden endpoint hazır — POST /api/communications/webhooks/n8n/status", "tag": "API" },
-      { "title": "Şema hem \"whatsapp-tour-sales\" hem \"ai-remarketing\" workflow key'lerini destekliyor — yani AI Remarketing projesi de buraya bağlanacak şekilde tasarlanmış", "tag": "DB" },
-      { "title": "Gelen event'ler redaksiyonlu: müşteri mesajı/telefon/e-posta/kampanya içeriği saklanmıyor, sadece durum bilgisi", "tag": "Gizlilik" }
+      {
+        "title": "Platform v1.0.0 olarak üretimde: CRM, teklif, tur katalog, operasyon/rehber atama, muhasebe, AI OCR fiş okuma",
+        "tag": "TourPilot"
+      },
+      {
+        "title": "communications modülü: n8n'den imzalı (HMAC-SHA256) durum event'leri kabul eden endpoint hazır — POST /api/communications/webhooks/n8n/status",
+        "tag": "API"
+      },
+      {
+        "title": "Şema hem \"whatsapp-tour-sales\" hem \"ai-remarketing\" workflow key'lerini destekliyor — yani AI Remarketing projesi de buraya bağlanacak şekilde tasarlanmış",
+        "tag": "DB"
+      },
+      {
+        "title": "Gelen event'ler redaksiyonlu: müşteri mesajı/telefon/e-posta/kampanya içeriği saklanmıyor, sadece durum bilgisi",
+        "tag": "Gizlilik"
+      }
     ],
     "doing": [
-      { "title": "n8n'den gelen staging durum event'lerinin uçtan uca doğrulanması — şu an 403 ile reddediliyor, kök neden bulundu (bkz. Bilinen Sorunlar)" }
+      {
+        "title": "n8n'den gelen staging durum event'lerinin uçtan uca doğrulanması — şu an 403 ile reddediliyor, kök neden bulundu (bkz. Bilinen Sorunlar)"
+      }
     ],
     "todo": [
-      { "title": "Bu tracker'ın TourPilot'un geri kalanını (CRM/muhasebe/operasyon modülleri) da kapsayacak şekilde ayrı ve detaylı incelenmesi (istenirse)" }
+      {
+        "title": "Bu tracker'ın TourPilot'un geri kalanını (CRM/muhasebe/operasyon modülleri) da kapsayacak şekilde ayrı ve detaylı incelenmesi (istenirse)"
+      }
     ]
   },
   "issues": [
-    { "severity": "high", "title": "communications webhook'u n8n isteklerini 403 \"Tenant mismatch\" ile reddediyor", "note": "Kaynak kod incelendi (artifacts/api-server/src/routes/communications.ts): sunucu, gelen event.tenantId'yi process.env.COMMUNICATIONS_TENANT_ID ile birebir karşılaştırıyor, eşleşmezse 403 dönüyor. n8n tarafı sabit olarak tenantId=\"iglesias-tour\" gönderiyor. Render'daki (tourops-ai-staging) COMMUNICATIONS_TENANT_ID değerinin tam olarak \"iglesias-tour\" olduğunu doğrulayın — bu, önceki \"HMAC secret eksik\" varsayımından daha kesin bir teşhis." }
+    {
+      "severity": "high",
+      "title": "communications webhook'u n8n isteklerini 403 \"Tenant mismatch\" ile reddediyor",
+      "note": "Kaynak kod incelendi (artifacts/api-server/src/routes/communications.ts): sunucu, gelen event.tenantId'yi process.env.COMMUNICATIONS_TENANT_ID ile birebir karşılaştırıyor, eşleşmezse 403 dönüyor. n8n tarafı sabit olarak tenantId=\"iglesias-tour\" gönderiyor. Render'daki (tourops-ai-staging) COMMUNICATIONS_TENANT_ID değerinin tam olarak \"iglesias-tour\" olduğunu doğrulayın — bu, önceki \"HMAC secret eksik\" varsayımından daha kesin bir teşhis."
+    }
   ],
   "integrations": [
-    { "name": "n8n — WhatsApp Tour Sales", "status": "red", "label": "403 Tenant mismatch" },
-    { "name": "n8n — AI Remarketing", "status": "gray", "label": "Şema hazır, henüz bağlanmadı" },
-    { "name": "Clerk Auth", "status": "green", "label": "Kullanımda" },
-    { "name": "PostgreSQL (Neon)", "status": "green", "label": "Kullanımda" },
-    { "name": "OpenRouter AI (GPT-4o-mini)", "status": "green", "label": "Muhasebe asistanı için kullanımda" }
+    {
+      "name": "n8n — WhatsApp Tour Sales",
+      "status": "red",
+      "label": "403 Tenant mismatch"
+    },
+    {
+      "name": "n8n — AI Remarketing",
+      "status": "gray",
+      "label": "Şema hazır, henüz bağlanmadı"
+    },
+    {
+      "name": "Clerk Auth",
+      "status": "green",
+      "label": "Kullanımda"
+    },
+    {
+      "name": "PostgreSQL (Neon)",
+      "status": "green",
+      "label": "Kullanımda"
+    },
+    {
+      "name": "OpenRouter AI (GPT-4o-mini)",
+      "status": "green",
+      "label": "Muhasebe asistanı için kullanımda"
+    }
   ],
   "changelog": [
-    { "date": "15 Ağustos 2026", "title": "communications.ts kaynak kodu incelendi, 403 hatasının kesin kök nedeni bulundu", "body": "İmza (HMAC) doğrulaması ve tenant kontrolü ayrı ayrı yapılıyor; n8n execution log'undaki hata \"Tenant mismatch\" (403) — imza/secret sorunu değil. Düzeltme: TourPilot staging ortamındaki COMMUNICATIONS_TENANT_ID ile n8n Code node'undaki tenantId=\"iglesias-tour\" değerinin birebir eşleştiğinden emin olun." }
+    {
+      "date": "15 Ağustos 2026",
+      "title": "communications.ts kaynak kodu incelendi, 403 hatasının kesin kök nedeni bulundu",
+      "body": "İmza (HMAC) doğrulaması ve tenant kontrolü ayrı ayrı yapılıyor; n8n execution log'undaki hata \"Tenant mismatch\" (403) — imza/secret sorunu değil. Düzeltme: TourPilot staging ortamındaki COMMUNICATIONS_TENANT_ID ile n8n Code node'undaki tenantId=\"iglesias-tour\" değerinin birebir eşleştiğinden emin olun."
+    }
   ]
 }

@@ -3,22 +3,34 @@
   "name": "AI Remarketing & Customer Reactivation",
   "statusLabel": "Ayrı n8n Projesi — İncelenmedi",
   "statusColor": "gray",
+  "visual": "network",
   "desc": "İzin kontrollü müşteri segmentasyonu, lead scoring ve WhatsApp/e-posta ile yeniden pazarlama. n8n'de ayrı bir proje olarak 6 workflow kuruldu. TourPilot'un communications şemasında kendi workflowKey'i (\"ai-remarketing\") zaten tanımlı — yani entegre olması planlanmış.",
   "progress": null,
   "repoNote": "n8n Cloud, proje: \"AI Remarketing & Customer Reactivation\"",
   "phases": {
     "done": [
-      { "title": "6 workflow oluşturuldu: M1_CONSENT_UPDATE, M1_CONTACT_UPSERT, M1_SYS_AUDIT_EVENT_WRITE, M1_SYS_ERROR_HANDLER, 02-WhatsApp & Email Delivery Router, 01-Remarketing Segmentation & Draft Engine", "tag": "n8n" }
+      {
+        "title": "6 workflow oluşturuldu: M1_CONSENT_UPDATE, M1_CONTACT_UPSERT, M1_SYS_AUDIT_EVENT_WRITE, M1_SYS_ERROR_HANDLER, 02-WhatsApp & Email Delivery Router, 01-Remarketing Segmentation & Draft Engine",
+        "tag": "n8n"
+      }
     ],
     "doing": [],
     "todo": [
-      { "title": "Detaylı teknik inceleme henüz yapılmadı — istenirse ayrı bir analiz çıkarılabilir" },
-      { "title": "TourPilot communications entegrasyonu (workflowKey=\"ai-remarketing\") henüz bağlı görünmüyor" }
+      {
+        "title": "Detaylı teknik inceleme henüz yapılmadı — istenirse ayrı bir analiz çıkarılabilir"
+      },
+      {
+        "title": "TourPilot communications entegrasyonu (workflowKey=\"ai-remarketing\") henüz bağlı görünmüyor"
+      }
     ]
   },
   "issues": [],
   "integrations": [],
   "changelog": [
-    { "date": "15 Ağustos 2026", "title": "Proje varlığı tespit edildi", "body": "n8n hesabında WhatsApp Tour Sales Assistant'tan tamamen ayrı bir proje olarak bulundu. Bu turda kapsam dışı tutuldu, sadece varlığı ve workflow isimleri kaydedildi." }
+    {
+      "date": "15 Ağustos 2026",
+      "title": "Proje varlığı tespit edildi",
+      "body": "n8n hesabında WhatsApp Tour Sales Assistant'tan tamamen ayrı bir proje olarak bulundu. Bu turda kapsam dışı tutuldu, sadece varlığı ve workflow isimleri kaydedildi."
+    }
   ]
 }

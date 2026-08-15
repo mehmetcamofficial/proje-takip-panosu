@@ -3,53 +3,163 @@
   "name": "WhatsApp Tour Sales Assistant (MVP)",
   "statusLabel": "MVP / Test",
   "statusColor": "yellow",
+  "visual": "chat",
   "desc": "n8n tabanlı AI Agent + Google Sheets + FAQ + Lead toplama. 12 Ağustos'ta uçtan uca başarıyla test edildi, ama gerçek WhatsApp mesajlaşmasına henüz bağlı değil.",
   "progress": 60,
   "repoNote": "Kod deposu yok — mantık tamamen n8n Cloud'da barınıyor (iglesiastourturkey.app.n8n.cloud, proje: \"WhatsApp Tour Sales Assistant\")",
   "phases": {
     "done": [
-      { "title": "AI Agent kuruldu (gpt-5-mini), TR/EN dil algılama, satış menüsü ve fiyat kuralları", "tag": "n8n" },
-      { "title": "Tur kataloğu okuma (get_active_tours) — Google Sheets \"Tours\" sekmesi", "tag": "Sheets" },
-      { "title": "Lead kaydetme (save_lead) — Google Sheets \"Leads\" sekmesi", "tag": "Sheets" },
-      { "title": "SSS motoru (get_faq_answer) + soru loglama", "tag": "Sheets" },
-      { "title": "İnsan destek talebi akışı + e-posta bildirimi (dedup kontrollü)", "tag": "SMTP" },
-      { "title": "Konuşma hafızası (son 20 mesaj, telefon numarasına göre oturum)", "tag": "n8n Memory" },
-      { "title": "Uçtan uca test webhook ile başarılı senaryo testleri (12 Ağustos)", "tag": "Test" }
+      {
+        "title": "AI Agent kuruldu (gpt-5-mini), TR/EN dil algılama, satış menüsü ve fiyat kuralları",
+        "tag": "n8n"
+      },
+      {
+        "title": "Tur kataloğu okuma (get_active_tours) — Google Sheets \"Tours\" sekmesi",
+        "tag": "Sheets"
+      },
+      {
+        "title": "Lead kaydetme (save_lead) — Google Sheets \"Leads\" sekmesi",
+        "tag": "Sheets"
+      },
+      {
+        "title": "SSS motoru (get_faq_answer) + soru loglama",
+        "tag": "Sheets"
+      },
+      {
+        "title": "İnsan destek talebi akışı + e-posta bildirimi (dedup kontrollü)",
+        "tag": "SMTP"
+      },
+      {
+        "title": "Konuşma hafızası (son 20 mesaj, telefon numarasına göre oturum)",
+        "tag": "n8n Memory"
+      },
+      {
+        "title": "Uçtan uca test webhook ile başarılı senaryo testleri (12 Ağustos)",
+        "tag": "Test"
+      }
     ],
     "doing": [
-      { "title": "Kommo (amoCRM) entegrasyonu — webhook + lead detay çekme çalışıyor, ana akışa bağlanmadı", "tag": "Kommo" },
-      { "title": "TourPilot'a durum bildirimi — bkz. TourPilot Platformu kartı, 403 hatası kök nedeni bulundu", "tag": "TourPilot" },
-      { "title": "Gerçek WhatsApp köprüsü — bkz. \"Iglesias WhatsApp Chatbot\" kartı (ayrı Python servisi geliştiriliyor)", "tag": "Gateway API" },
-      { "title": "SSS kalite/performans döngüsü (FAQ Quality Sandbox, Weekly Report) — kuruldu, derinlemesine doğrulanmadı", "tag": "Sheets" }
+      {
+        "title": "Kommo (amoCRM) entegrasyonu — webhook + lead detay çekme çalışıyor, ana akışa bağlanmadı",
+        "tag": "Kommo"
+      },
+      {
+        "title": "TourPilot'a durum bildirimi — bkz. TourPilot Platformu kartı, 403 hatası kök nedeni bulundu",
+        "tag": "TourPilot"
+      },
+      {
+        "title": "Gerçek WhatsApp köprüsü — bkz. \"Iglesias WhatsApp Chatbot\" kartı (ayrı Python servisi geliştiriliyor)",
+        "tag": "Gateway API"
+      },
+      {
+        "title": "SSS kalite/performans döngüsü (FAQ Quality Sandbox, Weekly Report) — kuruldu, derinlemesine doğrulanmadı",
+        "tag": "Sheets"
+      }
     ],
     "todo": [
-      { "title": "Kalıcı OpenAI API anahtarı (şu an n8n'in ücretsiz deneme kredisi kullanılıyor)" },
-      { "title": "Konuşma hafızasını kalıcı depoya taşıma (Redis/Postgres)" },
-      { "title": "Kommo'yu ana akışa bağlama (lead oluşturma/güncelleme)" },
-      { "title": "Webhook güvenliği (kimlik doğrulama / imza kontrolü ekleme — şu an Authentication: None)" }
+      {
+        "title": "Kalıcı OpenAI API anahtarı (şu an n8n'in ücretsiz deneme kredisi kullanılıyor)"
+      },
+      {
+        "title": "Konuşma hafızasını kalıcı depoya taşıma (Redis/Postgres)"
+      },
+      {
+        "title": "Kommo'yu ana akışa bağlama (lead oluşturma/güncelleme)"
+      },
+      {
+        "title": "Webhook güvenliği (kimlik doğrulama / imza kontrolü ekleme — şu an Authentication: None)"
+      }
     ]
   },
   "issues": [
-    { "severity": "high", "title": "n8n Cloud deneme süresi ~10 gün içinde doluyor", "note": "Tüm otomasyon durabilir" },
-    { "severity": "high", "title": "Gerçek WhatsApp mesaj alma/gönderme entegrasyonu yok", "note": "Şu an sadece test webhook ile simülasyon; köprü Gateway API'de geliştiriliyor" },
-    { "severity": "med", "title": "AI modeli n8n'in geçici ücretsiz kredisiyle çalışıyor", "note": "Kalıcı OpenAI key gerekiyor" },
-    { "severity": "med", "title": "Konuşma hafızası kalıcı değil (sunucu yeniden başlarsa silinir)", "note": "Redis/Postgres önerilir" },
-    { "severity": "med", "title": "Kommo entegrasyonu ana akışa bağlı değil", "note": "Lead'ler şu an sadece Sheets'e düşüyor" },
-    { "severity": "low", "title": "Webhook'ta kimlik doğrulama yok (Authentication: None)", "note": "Production öncesi eklenmeli" }
+    {
+      "severity": "high",
+      "title": "n8n Cloud deneme süresi ~10 gün içinde doluyor",
+      "note": "Tüm otomasyon durabilir"
+    },
+    {
+      "severity": "high",
+      "title": "Gerçek WhatsApp mesaj alma/gönderme entegrasyonu yok",
+      "note": "Şu an sadece test webhook ile simülasyon; köprü Gateway API'de geliştiriliyor"
+    },
+    {
+      "severity": "med",
+      "title": "AI modeli n8n'in geçici ücretsiz kredisiyle çalışıyor",
+      "note": "Kalıcı OpenAI key gerekiyor"
+    },
+    {
+      "severity": "med",
+      "title": "Konuşma hafızası kalıcı değil (sunucu yeniden başlarsa silinir)",
+      "note": "Redis/Postgres önerilir"
+    },
+    {
+      "severity": "med",
+      "title": "Kommo entegrasyonu ana akışa bağlı değil",
+      "note": "Lead'ler şu an sadece Sheets'e düşüyor"
+    },
+    {
+      "severity": "low",
+      "title": "Webhook'ta kimlik doğrulama yok (Authentication: None)",
+      "note": "Production öncesi eklenmeli"
+    }
   ],
   "integrations": [
-    { "name": "Google Sheets", "status": "green", "label": "Çalışıyor" },
-    { "name": "OpenAI (gpt-5-mini)", "status": "yellow", "label": "Geçici kredi" },
-    { "name": "WhatsApp (gerçek)", "status": "red", "label": "Yok — köprü geliştiriliyor" },
-    { "name": "Kommo (okuma)", "status": "green", "label": "Çalışıyor (izole)" },
-    { "name": "Kommo (ana akış)", "status": "red", "label": "Bağlı değil" },
-    { "name": "TourPilot (durum bildirimi)", "status": "red", "label": "403 hata" },
-    { "name": "SMTP (e-posta)", "status": "green", "label": "Çalışıyor" }
+    {
+      "name": "Google Sheets",
+      "status": "green",
+      "label": "Çalışıyor"
+    },
+    {
+      "name": "OpenAI (gpt-5-mini)",
+      "status": "yellow",
+      "label": "Geçici kredi"
+    },
+    {
+      "name": "WhatsApp (gerçek)",
+      "status": "red",
+      "label": "Yok — köprü geliştiriliyor"
+    },
+    {
+      "name": "Kommo (okuma)",
+      "status": "green",
+      "label": "Çalışıyor (izole)"
+    },
+    {
+      "name": "Kommo (ana akış)",
+      "status": "red",
+      "label": "Bağlı değil"
+    },
+    {
+      "name": "TourPilot (durum bildirimi)",
+      "status": "red",
+      "label": "403 hata"
+    },
+    {
+      "name": "SMTP (e-posta)",
+      "status": "green",
+      "label": "Çalışıyor"
+    }
   ],
   "changelog": [
-    { "date": "15 Ağustos 2026", "title": "İlk kapsamlı analiz + canlı takip panosu kuruldu", "body": "n8n hesabına canlı bağlanılarak 14 workflow, tüm node'lar, credential'lar ve execution logları incelendi. Ayrıca bilgisayardaki ilgili kod depoları (iglesias-whatsapp-chatbot, tourops-ai) keşfedilip mimari tabloya eklendi." },
-    { "date": "14 Ağustos 2026", "title": "Kommo webhook testi ve AI Remarketing projesi kuruldu", "body": "Kommo Lead Webhook Test workflow'u kuruldu ve 4 kez başarıyla test edildi. Ayrı \"AI Remarketing & Customer Reactivation\" projesi altında 6 workflow oluşturuldu." },
-    { "date": "12 Ağustos 2026", "title": "Ana WhatsApp akışı uçtan uca başarıyla test edildi", "body": "WhatsApp Tour Sales Assistant (MVP) workflow'u test webhook üzerinden çok sayıda kez çalıştırıldı, tüm çalıştırmalar başarılı sonuçlandı." },
-    { "date": "11 Ağustos 2026", "title": "Proje kuruluşu", "body": "Ana workflow ve ilk tool alt-workflow'ları (Get Active Tours, WhatsApp Tour Sales Assistant) oluşturuldu." }
+    {
+      "date": "15 Ağustos 2026",
+      "title": "İlk kapsamlı analiz + canlı takip panosu kuruldu",
+      "body": "n8n hesabına canlı bağlanılarak 14 workflow, tüm node'lar, credential'lar ve execution logları incelendi. Ayrıca bilgisayardaki ilgili kod depoları (iglesias-whatsapp-chatbot, tourops-ai) keşfedilip mimari tabloya eklendi."
+    },
+    {
+      "date": "14 Ağustos 2026",
+      "title": "Kommo webhook testi ve AI Remarketing projesi kuruldu",
+      "body": "Kommo Lead Webhook Test workflow'u kuruldu ve 4 kez başarıyla test edildi. Ayrı \"AI Remarketing & Customer Reactivation\" projesi altında 6 workflow oluşturuldu."
+    },
+    {
+      "date": "12 Ağustos 2026",
+      "title": "Ana WhatsApp akışı uçtan uca başarıyla test edildi",
+      "body": "WhatsApp Tour Sales Assistant (MVP) workflow'u test webhook üzerinden çok sayıda kez çalıştırıldı, tüm çalıştırmalar başarılı sonuçlandı."
+    },
+    {
+      "date": "11 Ağustos 2026",
+      "title": "Proje kuruluşu",
+      "body": "Ana workflow ve ilk tool alt-workflow'ları (Get Active Tours, WhatsApp Tour Sales Assistant) oluşturuldu."
+    }
   ]
 }

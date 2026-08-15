@@ -3,6 +3,7 @@
   "name": "Planlanan Web Siteleri (Efes Tur Grubu)",
   "statusLabel": "Planlama Aşaması — Henüz Başlanmadı",
   "statusColor": "gray",
+  "visual": "windows",
   "desc": "Iglesias Tour Turkey'e bağlı, Efes/Kuşadası bölgesi turlarına yönelik 4 ayrı web sitesi planlanıyor. Şu an için sadece domain (alan adı) listesi ve kaba bir plan var; kodlama/tasarım aşamasına henüz geçilmedi. Trello'daki \"websiteler planladı\" listesinden bu tracker'a taşındı.",
   "progress": 0,
   "repoNote": "Henüz bir GitHub reposu yok. Plana göre: dosyalar hazır olunca GitHub'a yüklenecek ve siteler sırayla (birer birer) geliştirilecek.",
@@ -10,17 +11,39 @@
     "done": [],
     "doing": [],
     "todo": [
-      { "title": "privateephesustours.com sitesi kurulacak", "tag": "Domain" },
-      { "title": "iglesiastourturkey.com sitesi kurulacak", "tag": "Domain" },
-      { "title": "kusadasiporttours.com sitesi kurulacak", "tag": "Domain" },
-      { "title": "ephesustourfromkusadasi.com sitesi kurulacak", "tag": "Domain" },
-      { "title": "iglesiastourturkey.com landing page'i Google İşletmem (Google Business Profile) hesabına bağlanacak", "tag": "SEO / Pazarlama" },
-      { "title": "Proje dosyaları GitHub'a yüklenecek, siteler sırayla (birer birer) geliştirilecek", "tag": "Süreç" }
+      {
+        "title": "privateephesustours.com sitesi kurulacak",
+        "tag": "Domain"
+      },
+      {
+        "title": "iglesiastourturkey.com sitesi kurulacak",
+        "tag": "Domain"
+      },
+      {
+        "title": "kusadasiporttours.com sitesi kurulacak",
+        "tag": "Domain"
+      },
+      {
+        "title": "ephesustourfromkusadasi.com sitesi kurulacak",
+        "tag": "Domain"
+      },
+      {
+        "title": "iglesiastourturkey.com landing page'i Google İşletmem (Google Business Profile) hesabına bağlanacak",
+        "tag": "SEO / Pazarlama"
+      },
+      {
+        "title": "Proje dosyaları GitHub'a yüklenecek, siteler sırayla (birer birer) geliştirilecek",
+        "tag": "Süreç"
+      }
     ]
   },
   "issues": [],
   "integrations": [],
   "changelog": [
-    { "date": "15 Ağustos 2026", "title": "Proje trackera eklendi", "body": "Trello'daki \"websiteler planladı\" listesinden (4 domain + Google İşletmem entegrasyon notu + GitHub'a yükleme planı) bu tracker'a taşındı. Henüz hiçbir sitede kodlama başlamadı." }
+    {
+      "date": "15 Ağustos 2026",
+      "title": "Proje trackera eklendi",
+      "body": "Trello'daki \"websiteler planladı\" listesinden (4 domain + Google İşletmem entegrasyon notu + GitHub'a yükleme planı) bu tracker'a taşındı. Henüz hiçbir sitede kodlama başlamadı."
+    }
   ]
 }
