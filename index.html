@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proje Takip Panosu — Iglesias Tour Turkey</title>
+<style>
+  :root{
+    --bg:#0f1216; --panel:#161b22; --panel-2:#1c222b; --border:#2a3138;
+    --text:#e6e9ee; --text-dim:#9aa4b2; --brand:#6c8cff;
+    --green:#3ecf8e; --yellow:#e8b339; --red:#e8555f; --gray:#6b7684;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.5; padding:32px 20px 80px;
+  }
+  a{color:var(--brand);}
+  .wrap{max-width:1140px;margin:0 auto;}
+  header{margin-bottom:28px;}
+  header h1{font-size:26px;margin:0 0 6px;}
+  header .sub{color:var(--text-dim);font-size:14px;}
+  .updated{
+    display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-dim);
+    margin-top:10px;background:var(--panel);border:1px solid var(--border);
+    padding:6px 12px;border-radius:20px;
+  }
+  .updated .dot{width:7px;height:7px;border-radius:50%;background:var(--green);}
+  .alert{
+    display:flex;gap:12px;align-items:flex-start;
+    background:linear-gradient(180deg,rgba(232,85,95,.12),rgba(232,85,95,.04));
+    border:1px solid rgba(232,85,95,.35);border-radius:12px;padding:14px 16px;margin:20px 0 30px;
+  }
+  .alert .icon{font-size:18px;line-height:1;}
+  .alert b{color:#ff8b92;}
+  .alert p{margin:4px 0 0;color:var(--text-dim);font-size:13.5px;}
+  .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:36px;}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;
+        text-decoration:none;color:inherit;display:block;transition:border-color .15s;}
+  .card:hover{border-color:var(--brand);}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:8px;}
+  .card h3{font-size:15px;margin:0;}
+  .card p.desc{font-size:12.5px;color:var(--text-dim);margin:6px 0 14px;}
+  .badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+  .badge.green{background:rgba(62,207,142,.15);color:var(--green);}
+  .badge.yellow{background:rgba(232,179,57,.15);color:var(--yellow);}
+  .badge.red{background:rgba(232,85,95,.15);color:var(--red);}
+  .badge.gray{background:rgba(107,118,132,.18);color:#aeb6c1;}
+  .progress-row{display:flex;align-items:center;gap:8px;}
+  .progress-track{flex:1;height:6px;background:var(--panel-2);border-radius:6px;overflow:hidden;}
+  .progress-fill{height:100%;border-radius:6px;}
+  .progress-pct{font-size:11px;color:var(--text-dim);width:32px;text-align:right;}
+  .proj-section{padding-top:36px;margin-top:36px;border-top:1px solid var(--border);scroll-margin-top:20px;}
+  .proj-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:6px;flex-wrap:wrap;}
+  .proj-head h2{font-size:20px;margin:0;}
+  .proj-repo{font-size:11.5px;color:var(--text-dim);margin:6px 0 16px;}
+  .proj-desc{font-size:13.5px;color:var(--text-dim);max-width:760px;margin:0 0 18px;}
+  h3.section-title{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-dim);margin:26px 0 12px;}
+  .kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .kanban-col{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px;}
+  .kanban-col h4{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+  .kanban-col h4 .count{background:var(--panel-2);color:var(--text-dim);border-radius:10px;padding:1px 8px;font-size:11px;}
+  .kanban-item{background:var(--panel-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;margin-bottom:8px;}
+  .kanban-item:last-child{margin-bottom:0;}
+  .kanban-item .tag{display:inline-block;font-size:10px;color:var(--text-dim);background:rgba(255,255,255,.04);padding:1px 7px;border-radius:6px;margin-top:6px;}
+  .col-done h4{color:var(--green);} .col-doing h4{color:var(--yellow);} .col-todo h4{color:var(--gray);}
+  .empty-note{font-size:12.5px;color:var(--text-dim);font-style:italic;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:left;color:var(--text-dim);font-weight:500;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;padding:0 10px 10px;border-bottom:1px solid var(--border);}
+  td{padding:12px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  .sev{font-size:11px;font-weight:600;padding:2px 9px;border-radius:6px;white-space:nowrap;}
+  .sev.high{background:rgba(232,85,95,.15);color:var(--red);}
+  .sev.med{background:rgba(232,179,57,.15);color:var(--yellow);}
+  .sev.low{background:rgba(107,118,132,.18);color:#aeb6c1;}
+  .matrix{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;}
+  .matrix .m-item{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;}
+  .matrix .m-item .name{font-size:12.5px;color:var(--text-dim);}
+  .matrix .m-item .stat{font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:6px;}
+  .matrix .m-item .stat .dot{width:8px;height:8px;border-radius:50%;}
+  .log{position:relative;padding-left:20px;}
+  .log::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:1px;background:var(--border);}
+  .log-entry{position:relative;padding-bottom:22px;}
+  .log-entry:last-child{padding-bottom:0;}
+  .log-entry::before{content:"";position:absolute;left:-20px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--panel);border:2px solid var(--brand);}
+  .log-date{font-size:11.5px;color:var(--text-dim);margin-bottom:3px;}
+  .log-title{font-size:13.5px;font-weight:600;margin-bottom:3px;}
+  .log-body{font-size:12.5px;color:var(--text-dim);}
+  footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);font-size:11.5px;color:var(--text-dim);}
+  #loading{color:var(--text-dim);font-size:13px;padding:40px 0;text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header id="site-header"></header>
+  <div id="banner"></div>
+  <div class="grid-cards" id="overview-cards"></div>
+  <div id="project-sections"><div id="loading">Yükleniyor…</div></div>
+  <footer>
+    Bu pano statik dosyalardır (<code>site.json</code> + <code>projects/*.json</code>). Güncellemek için ilgili JSON dosyasını düzenleyip GitHub'a push edin — GitHub Pages otomatik olarak yeniden yayınlar.
+  </footer>
+</div>
+
+<script>
+const STATUS_DOT = { green: "#3ecf8e", yellow: "#e8b339", red: "#e8555f", gray: "#6b7684" };
+
+function el(tag, cls, html) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+
+function renderHeader(site) {
+  const header = document.getElementById("site-header");
+  header.innerHTML = `
+    <h1>${site.title}</h1>
+    <div class="sub">${site.subtitle}</div>
+    <div class="updated"><span class="dot"></span> Son güncelleme: ${site.updated}</div>
+  `;
+  if (site.banner) {
+    document.getElementById("banner").innerHTML = `
+      <div class="alert">
+        <div class="icon">${site.banner.icon}</div>
+        <div><b>${site.banner.title}</b><p>${site.banner.text}</p></div>
+      </div>`;
+  }
+}
+
+function renderOverviewCard(p) {
+  const card = el("a", "card");
+  card.href = "#proj-" + p.id;
+  const progressHtml = (p.progress === null || p.progress === undefined)
+    ? `<div class="progress-row"><div class="progress-track"><div class="progress-fill" style="width:100%;background:${STATUS_DOT[p.statusColor]};opacity:.35;"></div></div><div class="progress-pct">—</div></div>`
+    : `<div class="progress-row"><div class="progress-track"><div class="progress-fill" style="width:${p.progress}%;background:${STATUS_DOT[p.statusColor]};"></div></div><div class="progress-pct">%${p.progress}</div></div>`;
+  card.innerHTML = `
+    <div class="top"><h3>${p.name}</h3><span class="badge ${p.statusColor}">${p.statusLabel}</span></div>
+    <p class="desc">${p.desc}</p>
+    ${progressHtml}
+  `;
+  return card;
+}
+
+function renderKanban(phases) {
+  const wrap = el("div", "kanban");
+  const cols = [
+    { key: "done", cls: "col-done", label: "✅ Tamamlandı" },
+    { key: "doing", cls: "col-doing", label: "🔄 Yapılıyor / Kısmi" },
+    { key: "todo", cls: "col-todo", label: "📋 Planlanan / Yapılmadı" }
+  ];
+  cols.forEach(c => {
+    const items = phases[c.key] || [];
+    const col = el("div", "kanban-col " + c.cls);
+    col.innerHTML = `<h4>${c.label} <span class="count">${items.length}</span></h4>`;
+    if (items.length === 0) {
+      col.appendChild(el("div", "empty-note", "Henüz bir şey yok."));
+    } else {
+      items.forEach(it => {
+        const item = el("div", "kanban-item", it.title + (it.tag ? `<span class="tag">${it.tag}</span>` : ""));
+        col.appendChild(item);
+      });
+    }
+    wrap.appendChild(col);
+  });
+  return wrap;
+}
+
+function renderIssues(issues) {
+  if (!issues || issues.length === 0) return el("div", "empty-note", "Bilinen bir sorun kaydedilmemiş.");
+  const table = el("table");
+  table.innerHTML = `<thead><tr><th style="width:90px;">Önem</th><th>Sorun</th><th style="width:320px;">Not</th></tr></thead>`;
+  const tbody = el("tbody");
+  const sevLabel = { high: "Yüksek", med: "Orta", low: "Düşük" };
+  issues.forEach(i => {
+    const tr = el("tr", null, `<td><span class="sev ${i.severity}">${sevLabel[i.severity] || i.severity}</span></td><td>${i.title}</td><td>${i.note || ""}</td>`);
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  return table;
+}
+
+function renderMatrix(integrations) {
+  if (!integrations || integrations.length === 0) return el("div", "empty-note", "Entegrasyon bilgisi henüz eklenmedi.");
+  const wrap = el("div", "matrix");
+  integrations.forEach(m => {
+    const item = el("div", "m-item");
+    item.innerHTML = `<div class="name">${m.name}</div><div class="stat"><span class="dot" style="background:${STATUS_DOT[m.status]};"></span>${m.label}</div>`;
+    wrap.appendChild(item);
+  });
+  return wrap;
+}
+
+function renderLog(changelog) {
+  const wrap = el("div", "log");
+  (changelog || []).forEach(c => {
+    const entry = el("div", "log-entry");
+    entry.innerHTML = `<div class="log-date">${c.date}</div><div class="log-title">${c.title}</div><div class="log-body">${c.body}</div>`;
+    wrap.appendChild(entry);
+  });
+  return wrap;
+}
+
+function renderProjectSection(p) {
+  const section = el("section", "proj-section");
+  section.id = "proj-" + p.id;
+  section.innerHTML = `
+    <div class="proj-head">
+      <h2>${p.name}</h2>
+      <span class="badge ${p.statusColor}">${p.statusLabel}</span>
+    </div>
+    <div class="proj-repo">${p.repoNote || ""}</div>
+    <p class="proj-desc">${p.desc}</p>
+  `;
+  section.appendChild(el("h3", "section-title", "Aşamalar"));
+  section.appendChild(renderKanban(p.phases || {}));
+  section.appendChild(el("h3", "section-title", "Bilinen Sorunlar / Riskler"));
+  section.appendChild(renderIssues(p.issues));
+  section.appendChild(el("h3", "section-title", "Entegrasyon Durumu"));
+  section.appendChild(renderMatrix(p.integrations));
+  section.appendChild(el("h3", "section-title", "Değişiklik Günlüğü"));
+  section.appendChild(renderLog(p.changelog));
+  return section;
+}
+
+async function main() {
+  const [site, manifest] = await Promise.all([
+    fetch("site.json").then(r => r.json()),
+    fetch("projects/manifest.json").then(r => r.json())
+  ]);
+  renderHeader(site);
+
+  const projects = await Promise.all(manifest.map(f => fetch("projects/" + f).then(r => r.json())));
+
+  const overview = document.getElementById("overview-cards");
+  overview.innerHTML = "";
+  projects.forEach(p => overview.appendChild(renderOverviewCard(p)));
+
+  const sections = document.getElementById("project-sections");
+  sections.innerHTML = "";
+  projects.forEach(p => sections.appendChild(renderProjectSection(p)));
+}
+
+main().catch(err => {
+  document.getElementById("project-sections").innerHTML =
+    `<div id="loading">Veri yüklenemedi: ${err.message}. Bu sayfayı bir HTTP sunucusu üzerinden açtığınızdan emin olun (GitHub Pages veya <code>python -m http.server</code>) — dosya olarak (file://) doğrudan açmak fetch() isteklerini engeller.</div>`;
+});
+</script>
+</body>
+</html>
