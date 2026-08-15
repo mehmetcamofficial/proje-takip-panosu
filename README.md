@@ -55,9 +55,18 @@ proje-takip-panosu/
 
 `phases.*` dizilerindeki her öğe `{ "title": "...", "tag": "opsiyonel-etiket" }` şeklindedir.
 
-## Tasarım hakkında
+## Tasarım hakkında — "Yol" deneyimi
 
-Pano, "atmosfer içinde uçuş" temalı immersive bir tasarıma sahip: arka planda kendi yazdığımız 3B bulut motoru (Canvas 2D üzerinde gerçek perspektif projeksiyonu) sürekli ileri doğru uçar, kaydırdıkça hızlanır, fare hareketiyle kamera hafifçe döner. Gökyüzü rengi sayfa aşağı indikçe derin maviden açık maviye geçer. İçerik, gökyüzünün üzerinde duran buzlu cam (frosted glass) paneller halinde sunulur; kartlar fareyle 3B eğilir, bölümler görünürken yumuşakça belirir, kaydırma ataletlidir. Sağ üstteki çizgiler proje menüsüdür — üzerine gelince açılır.
+Pano, Robin Payot ve Atmos tarzı immersive bir **yol yolculuğu** olarak kurgulanmıştır. Her proje, yol üzerinde bir **durak**tır:
+
+- Kaydırdıkça kamera 3B bir yol boyunca ilerler; yer boyunca uzanan nokta dizisi ufka doğru daralır, bulutlar yanınızdan geçer.
+- Her durakta yolun üzerinde projenin durum rengiyle parlayan bir işaret, oradan yukarı uzanan ince bir bağlantı çizgisi ve havada süzülen bir **proje kartı** bulunur. Kart yaklaştıkça büyür, geçtikten sonra kaybolur.
+- Kartta özet vardır: durak numarası, proje adı, durum etiketi, kaç iş tamamlandı / yapılıyor / planlanan, ilerleme yüzdesi.
+- Karta tıklayınca sağdan **detay paneli** açılır: aşamalar (tamamlandı / yapılıyor / planlanan), bilinen sorunlar ve riskler, entegrasyon durumu ve değişiklik günlüğü. `Esc` veya ✕ ile kapanır.
+- Sol kenardaki dikey şerit durak göstergesidir — üzerine gelince proje isimleri açılır, tıklayınca o durağa gider. Sağ üstte "kaçıncı duraktasınız" sayacı vardır.
+- Fare hareketiyle kamera hafifçe döner, gökyüzü yol ilerledikçe derin maviden açık maviye geçer.
+
+Mobilde 3B yol yerine aynı durakların dikey bir listesi gösterilir; karta dokununca aynı detay paneli açılır.
 
 **Önemli:** 3B sahne hiçbir dış kütüphane kullanmaz (Three.js vb. yok) — tamamen `index.html` içindedir, bu yüzden CDN kesintisinden etkilenmez. Tek dış kaynak Google Fonts'tan gelen başlık fontlarıdır (Playfair Display + Inter); yüklenemezse sistem fontlarına düşer, sayfa bozulmaz.
 

@@ -10,106 +10,64 @@
 <style>
   :root{
     --ink:#111a2e; --ink-dim:#5d6a89; --ink-soft:#8290ad;
-    --panel:rgba(255,255,255,.76); --panel-2:rgba(255,255,255,.54); --border:rgba(255,255,255,.9);
+    --panel:rgba(255,255,255,.80); --border:rgba(255,255,255,.92);
     --line:rgba(17,26,46,.10);
     --green:#0e9f6e; --yellow:#b8790a; --red:#dc2626; --gray:#6b7280;
-    --shadow:0 24px 60px -26px rgba(12,30,110,.45);
+    --shadow:0 26px 64px -28px rgba(12,30,110,.5);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
   body{
     font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     color:var(--ink); line-height:1.55; min-height:100vh; overflow-x:hidden;
-    background:linear-gradient(to bottom,#0a1fc4 0%,#4964e6 34%,#cddaff 72%,#f4f7ff 100%);
-    background-attachment:fixed;
-    -webkit-font-smoothing:antialiased;
+    background:linear-gradient(to bottom,#0a1fc4 0%,#4964e6 32%,#cddaff 70%,#f4f7ff 100%);
+    background-attachment:fixed; -webkit-font-smoothing:antialiased;
   }
-  h1,h2,.serif{font-family:'Playfair Display',Georgia,'Times New Roman',serif; font-weight:600;}
+  h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,'Times New Roman',serif; font-weight:600;}
 
-  /* ---------- background ---------- */
-  #sky{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block;}
-  .grain{
-    position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+  #road{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block;}
+  .grain{position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-  /* ---------- fixed corner UI ---------- */
-  .corner{position:fixed; z-index:40; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft);}
-  .corner.bl{left:26px; bottom:24px;}
-  .corner.br{right:26px; bottom:24px; text-align:right;}
-  #corner-nav{
-    position:fixed; top:22px; right:22px; z-index:40; display:flex; flex-direction:column; align-items:flex-end; gap:11px;
-    padding:16px 18px; border-radius:16px; background:transparent; border:1px solid transparent;
-    transition:background .45s, box-shadow .45s, border-color .45s;
-  }
-  #corner-nav:hover{background:rgba(255,255,255,.82); border-color:rgba(255,255,255,.95);
-    backdrop-filter:blur(18px) saturate(160%); box-shadow:0 18px 46px -22px rgba(12,30,110,.5);}
-  #corner-nav a{
-    display:flex; align-items:center; justify-content:flex-end; gap:11px; text-decoration:none;
-    font-size:10px; letter-spacing:.13em; text-transform:uppercase; color:rgba(255,255,255,.85); transition:color .35s;
-  }
-  .past-hero #corner-nav a{color:var(--ink-soft);}
-  #corner-nav a:hover, .past-hero #corner-nav:hover a:hover{color:var(--ink);}
-  #corner-nav:hover a{color:var(--ink-soft);}
-  #corner-nav a .lbl{
-    white-space:nowrap; max-width:0; overflow:hidden; opacity:0; transform:translateX(10px);
-    transition:max-width .5s cubic-bezier(.16,1,.3,1), opacity .4s, transform .5s cubic-bezier(.16,1,.3,1);
-  }
-  #corner-nav:hover a .lbl{max-width:260px; opacity:1; transform:none;}
-  #corner-nav a .dash{width:16px; height:1px; background:currentColor; flex:none; opacity:.75; transition:width .35s, opacity .35s;}
-  #corner-nav a:hover .dash{width:30px; opacity:1;}
-
-  /* ---------- hero ---------- */
-  .hero{min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:0 clamp(22px,6vw,90px); position:relative; color:#fff;}
-  .hero::before{
-    content:""; position:absolute; inset:0; pointer-events:none; z-index:-1;
-    background:linear-gradient(102deg, rgba(8,22,86,.52) 0%, rgba(8,22,86,.34) 34%, rgba(8,22,86,.10) 58%, transparent 76%);
-  }
-  .hero > *{position:relative;}
-  .hero .eyebrow{font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:rgba(255,255,255,.85); margin-bottom:24px; text-shadow:0 2px 18px rgba(6,18,80,.6);}
-  .hero h1{font-size:clamp(46px,9.5vw,132px); line-height:.95; margin:0 0 28px; letter-spacing:-.022em; text-shadow:0 12px 70px rgba(6,18,80,.4);}
-  .hero .lede{font-size:clamp(14px,1.5vw,18px); font-weight:300; color:#fff; max-width:620px; margin:0 0 46px; text-shadow:0 2px 20px rgba(6,18,80,.65);}
+  /* ---------- intro ---------- */
+  #intro{position:fixed; inset:0; z-index:12; display:flex; flex-direction:column; justify-content:center;
+    padding:0 clamp(22px,6vw,90px); color:#fff; pointer-events:none;}
+  #intro::before{content:""; position:absolute; inset:0; z-index:-1;
+    background:linear-gradient(102deg, rgba(8,22,86,.55) 0%, rgba(8,22,86,.34) 34%, rgba(8,22,86,.08) 60%, transparent 78%);}
+  #intro .eyebrow{font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:rgba(255,255,255,.85); margin-bottom:22px; text-shadow:0 2px 18px rgba(6,18,80,.6);}
+  #intro h1{font-size:clamp(44px,9vw,124px); line-height:.95; margin:0 0 26px; letter-spacing:-.022em; text-shadow:0 12px 70px rgba(6,18,80,.45);}
+  #intro .lede{font-size:clamp(14px,1.5vw,18px); font-weight:300; color:#fff; max-width:600px; margin:0 0 40px; text-shadow:0 2px 20px rgba(6,18,80,.65);}
   .scroll-cue{display:flex; align-items:center; gap:15px; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.92); text-shadow:0 2px 18px rgba(6,18,80,.65);}
-  .scroll-cue .bar{position:relative; width:64px; height:1px; background:rgba(255,255,255,.32); overflow:hidden;}
+  .scroll-cue .bar{position:relative; width:64px; height:1px; background:rgba(255,255,255,.3); overflow:hidden;}
   .scroll-cue .bar::after{content:""; position:absolute; inset:0; background:#fff; transform:translateX(-100%); animation:sweep 2.6s ease-in-out infinite;}
   @keyframes sweep{0%{transform:translateX(-100%);}55%{transform:translateX(100%);}100%{transform:translateX(100%);}}
-  .badge-ring{position:absolute; right:clamp(22px,7vw,110px); top:50%; width:170px; height:170px; margin-top:-85px; animation:spin 28s linear infinite;}
-  .badge-ring text{fill:rgba(255,255,255,.88); font-size:9px; letter-spacing:.32em; font-family:'Inter',sans-serif;}
-  .badge-ring circle{fill:none; stroke:rgba(255,255,255,.32); stroke-width:1;}
-  @keyframes spin{to{transform:rotate(360deg);}}
+  #intro .alert{pointer-events:auto; margin-top:44px; max-width:660px; display:flex; gap:13px; align-items:flex-start;
+    background:rgba(255,255,255,.9); color:var(--ink); border-radius:15px; padding:15px 18px; box-shadow:var(--shadow);
+    border-left:3px solid var(--red); backdrop-filter:blur(16px);}
+  #intro .alert b{color:#b91c1c; font-size:14px;}
+  #intro .alert p{margin:4px 0 0; font-size:13px; color:var(--ink-dim); font-weight:300;}
 
-  /* ---------- reveal ---------- */
-  .reveal{opacity:0; transform:translateY(36px); transition:opacity 1.05s cubic-bezier(.16,1,.3,1), transform 1.05s cubic-bezier(.16,1,.3,1);}
-  .reveal.in{opacity:1; transform:none;}
-  .mask{overflow:hidden; display:block;}
-  .mask > span{display:block; transform:translateY(108%); transition:transform 1.15s cubic-bezier(.16,1,.3,1);}
-  .mask.in > span{transform:none;}
-
-  /* ---------- content ---------- */
-  .wrap{max-width:1180px; margin:0 auto; padding:0 clamp(18px,4vw,40px) 130px; perspective:1600px;}
-  .alert{display:flex;gap:14px;align-items:flex-start; background:rgba(255,255,255,.82); border:1px solid rgba(220,38,38,.2); border-left:3px solid var(--red); border-radius:16px;padding:17px 20px;margin:0 0 48px; box-shadow:var(--shadow); backdrop-filter:blur(18px) saturate(150%);}
-  .alert .icon{font-size:19px;line-height:1.2;}
-  .alert b{color:#b91c1c; font-size:14.5px;}
-  .alert p{margin:5px 0 0;color:var(--ink-dim);font-size:13.5px; font-weight:300;}
-  .sec-label{font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-soft); display:flex; align-items:center; gap:14px; margin:30px 0 18px;}
-  .sec-label::after{content:""; flex:1; height:1px; background:var(--line);}
-  .sec-label.top{margin-top:0;}
-
-  .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:18px;margin-bottom:76px;}
-  .card{
-    position:relative; background:var(--panel); border:1px solid var(--border); border-radius:20px; padding:24px 22px;
-    text-decoration:none;color:inherit;display:block; backdrop-filter:blur(20px) saturate(160%);
-    box-shadow:var(--shadow); transform-style:preserve-3d; will-change:transform;
-    transition:transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s, border-color .4s, opacity 1.05s cubic-bezier(.16,1,.3,1);
+  /* ---------- stations (3B kartlar) ---------- */
+  #stations{position:fixed; inset:0; z-index:10; pointer-events:none;}
+  .station{
+    position:absolute; top:0; left:0; width:330px; transform-origin:center center; will-change:transform,opacity;
+    pointer-events:auto; cursor:pointer;
   }
-  .card::after{content:""; position:absolute; inset:0; border-radius:20px; pointer-events:none; opacity:0; transition:opacity .4s; background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.7), transparent 55%);}
-  .card:hover{box-shadow:0 36px 74px -26px rgba(12,30,110,.58); border-color:#fff;}
-  .card:hover::after{opacity:1;}
-  .card .num{position:absolute; top:21px; right:22px; font-family:'Playfair Display',serif; font-size:12px; color:var(--ink-soft); opacity:.55; transform:translateZ(20px);}
-  .card h3{font-family:'Playfair Display',Georgia,serif; font-size:19px;margin:0 60px 12px 0; font-weight:600; line-height:1.2; transform:translateZ(34px);}
-  .card .bwrap{margin-bottom:15px; transform:translateZ(26px);}
-  .card p.desc{font-size:12.5px;color:var(--ink-dim);margin:0 0 18px; font-weight:300; transform:translateZ(18px);}
+  .station .box{
+    background:var(--panel); border:1px solid var(--border); border-radius:20px; padding:22px 22px 20px;
+    box-shadow:var(--shadow); backdrop-filter:blur(18px) saturate(160%);
+    transition:box-shadow .35s, border-color .35s, background .35s;
+  }
+  .station:hover .box{box-shadow:0 34px 74px -26px rgba(12,30,110,.62); border-color:#fff; background:rgba(255,255,255,.9);}
+  .station .num{font-family:'Playfair Display',serif; font-size:12px; color:var(--ink-soft); letter-spacing:.1em;}
+  .station h3{font-size:20px; margin:6px 0 12px; line-height:1.18;}
+  .station .badge{margin-bottom:14px; display:inline-block;}
+  .station .mini{display:flex; gap:14px; font-size:11px; color:var(--ink-dim); margin:0 0 14px; letter-spacing:.02em;}
+  .station .mini b{font-weight:600; color:var(--ink);}
+  .station .open{font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); display:flex; align-items:center; gap:8px; margin-top:14px;}
+  .station .open .ar{transition:transform .35s;}
+  .station:hover .open .ar{transform:translateX(5px);}
+  .station .open{color:var(--ink);}
 
   .badge{font-size:10.5px;font-weight:600;padding:4px 11px;border-radius:20px;white-space:nowrap; display:inline-block;}
   .badge.green{background:rgba(14,159,110,.13);color:var(--green); border:1px solid rgba(14,159,110,.25);}
@@ -117,31 +75,77 @@
   .badge.red{background:rgba(220,38,38,.12);color:var(--red); border:1px solid rgba(220,38,38,.25);}
   .badge.gray{background:rgba(107,114,128,.13);color:var(--gray); border:1px solid rgba(107,114,128,.22);}
 
-  .progress-row{display:flex;align-items:center;gap:10px; transform:translateZ(18px);}
-  .progress-track{flex:1;height:3px;background:rgba(17,26,46,.10);border-radius:4px;overflow:hidden;}
-  .progress-fill{height:100%;border-radius:4px; width:0; transition:width 1.5s cubic-bezier(.16,1,.3,1) .3s;}
+  .progress-row{display:flex;align-items:center;gap:10px;}
+  .progress-track{flex:1;height:3px;background:rgba(17,26,46,.1);border-radius:4px;overflow:hidden;}
+  .progress-fill{height:100%;border-radius:4px;}
   .progress-pct{font-size:11px;color:var(--ink-dim);width:34px;text-align:right; font-variant-numeric:tabular-nums;}
 
-  .proj-section{padding:38px clamp(20px,3.4vw,42px) 44px; margin-bottom:36px; border-radius:26px; scroll-margin-top:30px; background:var(--panel); border:1px solid var(--border); backdrop-filter:blur(20px) saturate(160%); box-shadow:var(--shadow);}
-  .proj-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:8px;flex-wrap:wrap;}
-  .proj-head h2{font-size:clamp(24px,3.2vw,36px);margin:0; letter-spacing:-.018em; line-height:1.1;}
-  .proj-repo{font-size:11.5px;color:var(--ink-soft);margin:10px 0 18px;}
-  .proj-desc{font-size:14px;color:var(--ink-dim);max-width:830px;margin:0; font-weight:300;}
+  /* ---------- HUD ---------- */
+  .corner{position:fixed; z-index:20; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft);}
+  .corner.bl{left:26px; bottom:24px;}
+  .corner.br{right:26px; bottom:24px; text-align:right;}
+  #rail{position:fixed; left:26px; top:50%; transform:translateY(-50%); z-index:20; display:flex; flex-direction:column; gap:2px;}
+  #rail button{
+    display:flex; align-items:center; gap:12px; background:none; border:0; padding:7px 0; cursor:pointer;
+    font:inherit; font-size:10px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-soft);
+    transition:color .3s;
+  }
+  #rail button .dot{width:9px;height:9px;border-radius:50%; border:1.5px solid currentColor; flex:none; transition:transform .35s, background .35s;}
+  #rail button .t{max-width:0; overflow:hidden; white-space:nowrap; opacity:0; transform:translateX(-8px);
+    transition:max-width .5s cubic-bezier(.16,1,.3,1), opacity .4s, transform .5s cubic-bezier(.16,1,.3,1);}
+  #rail:hover button .t{max-width:230px; opacity:1; transform:none;}
+  #rail button:hover{color:var(--ink);}
+  #rail button.on{color:var(--ink); font-weight:600;}
+  #rail button.on .dot{transform:scale(1.5);}
+  #counter{position:fixed; right:26px; top:26px; z-index:20; text-align:right; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft);}
+  #counter .big{font-family:'Playfair Display',serif; font-size:30px; letter-spacing:0; color:var(--ink); display:block; line-height:1;}
+  .hud-hidden #rail, .hud-hidden #counter, .hud-hidden .corner{opacity:0; pointer-events:none; transition:opacity .5s;}
+  #rail, #counter, .corner{transition:opacity .5s;}
+  .intro-mode #rail, .intro-mode #counter{opacity:0; pointer-events:none;}
 
-  .kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-  .kanban-col{background:var(--panel-2);border:1px solid rgba(255,255,255,.82);border-radius:18px;padding:16px;}
-  .kanban-col h4{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;margin:0 0 14px;display:flex;align-items:center;gap:8px; font-weight:600;}
+  /* ---------- detay paneli ---------- */
+  #detail{
+    position:fixed; inset:0; z-index:60; display:flex; justify-content:flex-end;
+    background:rgba(8,20,70,.34); backdrop-filter:blur(6px);
+    opacity:0; pointer-events:none; transition:opacity .5s;
+  }
+  #detail.open{opacity:1; pointer-events:auto;}
+  .detail-panel{
+    width:min(820px,100%); height:100%; overflow-y:auto; overscroll-behavior:contain;
+    background:rgba(255,255,255,.94); backdrop-filter:blur(24px) saturate(160%);
+    box-shadow:-30px 0 90px -30px rgba(8,20,70,.6);
+    padding:44px clamp(22px,4vw,52px) 90px;
+    transform:translateX(40px); transition:transform .55s cubic-bezier(.16,1,.3,1);
+  }
+  #detail.open .detail-panel{transform:none;}
+  .detail-close{
+    position:sticky; top:0; float:right; margin:-14px -6px 0 0; z-index:3;
+    width:40px;height:40px;border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.9);
+    cursor:pointer; font-size:17px; color:var(--ink-dim); line-height:1; transition:background .3s,color .3s,transform .3s;
+  }
+  .detail-close:hover{background:var(--ink); color:#fff; transform:rotate(90deg);}
+  .detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap; margin-bottom:6px;}
+  .detail-head h2{font-size:clamp(24px,3.4vw,38px);margin:0; letter-spacing:-.018em; line-height:1.08;}
+  .detail-repo{font-size:11.5px;color:var(--ink-soft);margin:12px 0 16px;}
+  .detail-desc{font-size:14px;color:var(--ink-dim);margin:0 0 6px; font-weight:300;}
+
+  .sec-label{font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-soft);
+    display:flex; align-items:center; gap:14px; margin:32px 0 16px;}
+  .sec-label::after{content:""; flex:1; height:1px; background:var(--line);}
+
+  .kanban{display:grid;grid-template-columns:1fr;gap:14px;}
+  .kanban-col{background:rgba(240,244,255,.7);border:1px solid rgba(255,255,255,.9);border-radius:16px;padding:15px;}
+  .kanban-col h4{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;margin:0 0 12px;display:flex;align-items:center;gap:8px; font-weight:600;}
   .kanban-col h4 .count{background:rgba(17,26,46,.07);color:var(--ink-dim);border-radius:10px;padding:1px 8px;font-size:10px; letter-spacing:0;}
-  .kanban-item{background:rgba(255,255,255,.74);border:1px solid rgba(255,255,255,.92);border-radius:13px;padding:12px 14px;font-size:13px;margin-bottom:10px; transition:transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s; box-shadow:0 4px 14px -8px rgba(12,30,110,.35);}
-  .kanban-item:hover{transform:translateY(-4px); box-shadow:0 18px 32px -14px rgba(12,30,110,.5);}
+  .kanban-item{background:#fff;border:1px solid rgba(17,26,46,.07);border-radius:12px;padding:11px 13px;font-size:13px;margin-bottom:9px; box-shadow:0 3px 12px -8px rgba(12,30,110,.4);}
   .kanban-item:last-child{margin-bottom:0;}
-  .kanban-item .tag{display:inline-block;font-size:9.5px;color:var(--ink-soft);background:rgba(17,26,46,.06);padding:2px 8px;border-radius:6px;margin-top:8px; letter-spacing:.07em; text-transform:uppercase;}
+  .kanban-item .tag{display:inline-block;font-size:9.5px;color:var(--ink-soft);background:rgba(17,26,46,.06);padding:2px 8px;border-radius:6px;margin-top:7px; letter-spacing:.07em; text-transform:uppercase;}
   .col-done h4{color:var(--green);} .col-doing h4{color:var(--yellow);} .col-todo h4{color:var(--gray);}
   .empty-note{font-size:12.5px;color:var(--ink-soft);font-style:italic;}
 
   table{width:100%;border-collapse:collapse;font-size:13px;}
-  th{text-align:left;color:var(--ink-soft);font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.14em;padding:0 10px 12px;border-bottom:1px solid var(--line);}
-  td{padding:14px 10px;border-bottom:1px solid var(--line);vertical-align:top; color:var(--ink-dim); font-weight:300;}
+  th{text-align:left;color:var(--ink-soft);font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.14em;padding:0 8px 12px;border-bottom:1px solid var(--line);}
+  td{padding:13px 8px;border-bottom:1px solid var(--line);vertical-align:top; color:var(--ink-dim); font-weight:300;}
   td:nth-child(2){color:var(--ink); font-weight:400;}
   tr:last-child td{border-bottom:none;}
   .sev{font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:6px;white-space:nowrap;}
@@ -149,310 +153,461 @@
   .sev.med{background:rgba(184,121,10,.13);color:var(--yellow);}
   .sev.low{background:rgba(107,114,128,.13);color:var(--gray);}
 
-  .matrix{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;}
-  .matrix .m-item{background:rgba(255,255,255,.64);border:1px solid rgba(255,255,255,.92);border-radius:16px;padding:15px 17px;display:flex;flex-direction:column;gap:7px; transition:transform .4s cubic-bezier(.16,1,.3,1);}
-  .matrix .m-item:hover{transform:translateY(-4px);}
-  .matrix .m-item .name{font-size:11.5px;color:var(--ink-soft);}
-  .matrix .m-item .stat{font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:9px;}
-  .matrix .m-item .stat .dot{width:7px;height:7px;border-radius:50%; flex:none;}
+  .matrix{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px;}
+  .m-item{background:rgba(240,244,255,.7);border:1px solid rgba(255,255,255,.9);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;}
+  .m-item .name{font-size:11.5px;color:var(--ink-soft);}
+  .m-item .stat{font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:9px;}
+  .m-item .stat .dot{width:7px;height:7px;border-radius:50%; flex:none;}
 
   .log{position:relative;padding-left:24px;}
   .log::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--line);}
-  .log-entry{position:relative;padding-bottom:24px;}
+  .log-entry{position:relative;padding-bottom:22px;}
   .log-entry:last-child{padding-bottom:0;}
   .log-entry::before{content:"";position:absolute;left:-24px;top:5px;width:11px;height:11px;border-radius:50%;background:#fff;border:1.5px solid #4964e6; box-shadow:0 0 0 4px rgba(73,100,230,.12);}
   .log-date{font-size:10px;color:var(--ink-soft);margin-bottom:4px; letter-spacing:.12em; text-transform:uppercase;}
   .log-title{font-size:14px;font-weight:600;margin-bottom:4px;}
   .log-body{font-size:12.5px;color:var(--ink-dim); font-weight:300;}
 
-  footer{margin-top:66px;padding-top:26px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink-soft); font-weight:300;}
-  footer code{background:rgba(17,26,46,.06); padding:1px 6px; border-radius:5px;}
-  #loading{color:#fff;font-size:13px;padding:60px 0;text-align:center;}
+  /* ---------- son ekran ---------- */
+  #outro{position:fixed; inset:0; z-index:11; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:var(--ink); text-align:center; opacity:0; pointer-events:none; padding:0 24px;}
+  #outro h2{font-size:clamp(26px,4.4vw,52px); margin:0 0 14px;}
+  #outro p{font-size:13.5px; font-weight:300; color:var(--ink-dim); max-width:520px; margin:0 0 26px;}
+  #outro button{pointer-events:auto; background:var(--ink); border:0; color:#fff; padding:13px 26px; border-radius:40px;
+    font:inherit; font-size:11px; letter-spacing:.16em; text-transform:uppercase; cursor:pointer; box-shadow:var(--shadow); transition:transform .35s;}
+  #outro button:hover{transform:translateY(-3px);}
 
-  /* ---------- cursor ---------- */
-  .cur,.cur-ring{position:fixed; top:0; left:0; z-index:90; pointer-events:none; border-radius:50%; opacity:0; transition:opacity .35s;}
+  /* ---------- mobil liste ---------- */
+  #mobile-list{display:none; position:relative; z-index:10; padding:0 18px 90px;}
+  #mobile-list .mcard{background:var(--panel); border:1px solid var(--border); border-radius:18px; padding:20px; margin-bottom:14px;
+    box-shadow:var(--shadow); backdrop-filter:blur(16px); cursor:pointer;}
+  #mobile-list .mcard h3{font-size:18px; margin:6px 0 10px; line-height:1.2;}
+  #mobile-list .mhead{padding:26px 2px 16px; font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-soft);}
+
+  #scroll-spacer{height:100vh;}
+
+  .cur,.cur-ring{position:fixed; top:0; left:0; z-index:80; pointer-events:none; border-radius:50%; opacity:0; transition:opacity .35s;}
   .cur{width:6px;height:6px;background:#fff; margin:-3px 0 0 -3px; mix-blend-mode:difference;}
-  .cur-ring{width:34px;height:34px;border:1px solid rgba(140,160,220,.8); margin:-17px 0 0 -17px; transition:opacity .35s, width .35s, height .35s, margin .35s;}
+  .cur-ring{width:32px;height:32px;border:1px solid rgba(140,160,220,.8); margin:-16px 0 0 -16px; transition:opacity .35s,width .35s,height .35s,margin .35s;}
   .cur-on .cur,.cur-on .cur-ring{opacity:1;}
-  .cur-ring.big{width:56px;height:56px;margin:-28px 0 0 -28px; border-color:rgba(120,145,215,.95);}
-
-  /* ---------- smooth scroll ---------- */
-  #scroll-content{position:relative; z-index:5;}
-  .smooth #scroll-content{position:fixed; top:0; left:0; width:100%; will-change:transform;}
-  #scroll-spacer{display:none;}
-  .smooth #scroll-spacer{display:block;}
+  .cur-ring.big{width:56px;height:56px;margin:-28px 0 0 -28px;}
 
   @media (max-width:820px){
-    .kanban{grid-template-columns:1fr;}
-    .badge-ring,#corner-nav,.corner,.cur,.cur-ring{display:none;}
-    .wrap{padding-bottom:70px;}
-    .hero{padding-top:80px; padding-bottom:60px;}
-    .proj-section{padding:28px 20px 32px; border-radius:20px;}
-    .grid-cards{margin-bottom:52px;}
+    body{background-attachment:scroll;}
+    #stations,#rail,#counter,.corner,#outro,.cur,.cur-ring{display:none !important;}
+    #intro{position:relative; inset:auto; min-height:100vh; z-index:10;}
+    #mobile-list{display:block;}
+    #scroll-spacer{display:none;}
+    .detail-panel{width:100%; padding:34px 18px 80px;}
   }
   @media (prefers-reduced-motion: reduce){
-    .reveal{opacity:1 !important; transform:none !important;}
-    .mask > span{transform:none !important;}
-    .badge-ring,.scroll-cue .bar::after{animation:none !important;}
-    html{scroll-behavior:auto;}
+    .scroll-cue .bar::after{animation:none;}
+    .detail-panel{transition:none;}
   }
 </style>
 </head>
 <body>
-<canvas id="sky" aria-hidden="true"></canvas>
+<canvas id="road" aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
 
-<nav id="corner-nav" aria-label="Projeler"></nav>
+<div id="intro">
+  <div class="eyebrow">Canlı Proje Durumu</div>
+  <h1 id="intro-title">Proje Takip Panosu</h1>
+  <p class="lede" id="intro-lede"></p>
+  <div class="scroll-cue"><span class="bar"></span> Yolculuğa başlamak için kaydırın</div>
+  <div id="intro-banner"></div>
+</div>
+
+<div id="stations"></div>
+
+<div id="outro">
+  <h2>Yolun sonu</h2>
+  <p>Tüm duraklar bu kadar. Bir projeye tıklayarak detayına inebilir veya başa dönebilirsiniz.</p>
+  <button id="back-top">Başa dön</button>
+</div>
+
+<nav id="rail" aria-label="Duraklar"></nav>
+<div id="counter"><span class="big" id="counter-num">01</span><span id="counter-tot"></span></div>
 <div class="corner bl">Iglesias Tour Turkey</div>
 <div class="corner br" id="corner-updated"></div>
 
-<div id="scroll-spacer"></div>
-<div id="scroll-content">
-  <section class="hero" id="hero">
-    <div class="eyebrow mask"><span>Canlı Proje Durumu</span></div>
-    <h1 class="mask"><span id="hero-title">Proje Takip Panosu</span></h1>
-    <p class="lede reveal" id="hero-lede"></p>
-    <div class="scroll-cue reveal"><span class="bar"></span> Yolculuğa başlamak için kaydırın</div>
-    <svg class="badge-ring" viewBox="0 0 170 170" aria-hidden="true">
-      <circle cx="85" cy="85" r="84"/><circle cx="85" cy="85" r="64"/>
-      <defs><path id="rp" d="M85,85 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
-      <text><textPath href="#rp" startOffset="0%">IGLESIAS TOUR TURKEY • N8N • WHATSAPP • TOURPILOT • </textPath></text>
-    </svg>
-  </section>
+<div id="mobile-list"></div>
 
-  <div class="wrap">
-    <div id="banner"></div>
-    <div class="sec-label top reveal">Projeler</div>
-    <div class="grid-cards" id="overview-cards"></div>
-    <div id="project-sections"><div id="loading">Yükleniyor…</div></div>
-    <footer class="reveal">
-      Bu pano statik dosyalardır (<code>site.json</code> + <code>projects/*.json</code>). Güncellemek için ilgili JSON dosyasını düzenleyip GitHub'a push edin — GitHub Pages otomatik olarak yeniden yayınlar.
-    </footer>
-  </div>
+<div id="detail" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="detail-panel" id="detail-panel"></div>
 </div>
 
+<div id="scroll-spacer"></div>
 <div class="cur" id="cur"></div>
 <div class="cur-ring" id="cur-ring"></div>
 
 <script>
 "use strict";
 
-var STATUS_DOT = { green:"#0e9f6e", yellow:"#b8790a", red:"#dc2626", gray:"#6b7280" };
+var STATUS = { green:"#0e9f6e", yellow:"#b8790a", red:"#dc2626", gray:"#6b7280" };
 var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 var FINE   = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
 var SMALL  = window.matchMedia && window.matchMedia("(max-width: 820px)").matches;
-var RICH   = !REDUCE && !SMALL;
 
 function el(t,c,h){ var e=document.createElement(t); if(c)e.className=c; if(h!==undefined)e.innerHTML=h; return e; }
 function lerp(a,b,t){ return a+(b-a)*t; }
-function clamp01(v){ return v<0?0:(v>1?1:v); }
+function cl01(v){ return v<0?0:(v>1?1:v); }
 function rnd(a,b){ return a+Math.random()*(b-a); }
+function pad2(n){ return (n<10?"0":"")+n; }
+
+/* ---- yol geometrisi ---- */
+var FOCAL   = 800;
+var FIRST_Z = 2500;   // ilk durağın derinliği
+var GAP     = 1500;   // duraklar arası mesafe
+var NEARZ   = 150;
+var PPU     = 1.55;   // 1px kaydırma = kaç birim ilerleme
+
+var PROJECTS = [], STOPS = [], camZ = 0, targetZ = 0, camX = 0, camY = 0, tCamX = 0, tCamY = 0;
+var W=0,H=0,ctx=null,cv=null,DPR=1;
+var clouds=[], dust=[], sprites=[];
+var detailOpen=false, frozenScroll=0, activeIdx=0;
 
 /* ============================================================
-   1. Atmosfer — kendi 3B bulut motoru (Canvas 2D, dış bağımlılık yok)
+   Gökyüzü / bulut / yol çizimi
    ============================================================ */
-var Sky = (function(){
-  var cv, ctx, W=0, H=0, DPR=1, ok=false;
-  var sprites = [], puffs = [], dust = [];
-  var FOCAL = 640, FAR = 2600, NEAR = 90;
-  var flyZ = 0, vel = 0, camX = 0, camY = 0, tCamX = 0, tCamY = 0;
+function makeSprite(r,g,b){
+  var s=192,c=document.createElement("canvas"); c.width=c.height=s;
+  var x=c.getContext("2d");
+  var rg=x.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
+  rg.addColorStop(0,"rgba("+r+","+g+","+b+",1)");
+  rg.addColorStop(.34,"rgba("+r+","+g+","+b+",.72)");
+  rg.addColorStop(.66,"rgba("+r+","+g+","+b+",.26)");
+  rg.addColorStop(1,"rgba("+r+","+g+","+b+",0)");
+  x.fillStyle=rg; x.fillRect(0,0,s,s);
+  return c;
+}
 
-  function makeSprite(r,g,b){
-    var s = 192, c = document.createElement("canvas");
-    c.width = c.height = s;
-    var x = c.getContext("2d");
-    var rg = x.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
-    rg.addColorStop(0.00,"rgba("+r+","+g+","+b+",1)");
-    rg.addColorStop(0.34,"rgba("+r+","+g+","+b+",.72)");
-    rg.addColorStop(0.66,"rgba("+r+","+g+","+b+",.26)");
-    rg.addColorStop(1.00,"rgba("+r+","+g+","+b+",0)");
-    x.fillStyle = rg; x.fillRect(0,0,s,s);
-    return c;
+function seedScene(){
+  var span = FIRST_Z + (Math.max(PROJECTS.length,1)-1)*GAP + 2600;
+  clouds.length=0; dust.length=0;
+  var n = SMALL? 26 : 74;
+  for (var i=0;i<n;i++){
+    clouds.push({
+      x: (Math.random()<.5?-1:1)*rnd(260,1150),
+      y: rnd(-420,300),
+      z: rnd(200, span),
+      r: rnd(150,380),
+      a: rnd(.26,.6),
+      s: sprites[Math.floor(Math.random()*sprites.length)]
+    });
   }
+  for (var k=0;k<520;k++){
+    dust.push({ x:rnd(-1400,1400), y:rnd(-420,340), z:rnd(200,span), r:rnd(.8,2.2) });
+  }
+  window.SPAN = span;
+}
 
-  function seed(){
-    puffs.length = 0; dust.length = 0;
-    var clusters = SMALL ? 10 : 20;
-    for (var i=0;i<clusters;i++){
-      var cz = -rnd(NEAR, FAR);
-      var side = Math.random() < 0.5 ? -1 : 1;
-      var cx = side * rnd(120, 620);
-      var cy = rnd(-330, 330);
-      var n = SMALL ? 3 : (4 + Math.floor(Math.random()*3));
-      for (var j=0;j<n;j++){
-        puffs.push({
-          x: cx + rnd(-230,230),
-          y: cy + rnd(-110,110),
-          z: cz + rnd(-190,190),
-          r: rnd(130,320),
-          a: rnd(0.30,0.66),
-          s: sprites[Math.floor(Math.random()*sprites.length)]
-        });
-      }
+function resize(){
+  DPR = Math.min(window.devicePixelRatio||1, 1.4);
+  W = window.innerWidth; H = window.innerHeight;
+  cv.width = Math.floor(W*DPR); cv.height = Math.floor(H*DPR);
+  cv.style.width=W+"px"; cv.style.height=H+"px";
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  layoutSpacer();
+}
+
+function proj(x,y,z){
+  var s = FOCAL/z;
+  return { x: W/2 + (x-camX)*s, y: H/2 + (y-camY)*s, s: s };
+}
+
+function drawScene(){
+  ctx.clearRect(0,0,W,H);
+  var horizonY = H/2 - camY*0.02;
+
+  /* --- yol: yere serpiştirilmiş noktalar, ufka doğru daralan --- */
+  var GROUND = 260;
+  var step = 110;
+  var startK = Math.ceil((camZ + NEARZ)/step);
+  var endK   = Math.floor((camZ + 4200)/step);
+  for (var k=startK;k<=endK;k++){
+    var wz = k*step, rz = wz - camZ;
+    if (rz < NEARZ) continue;
+    var sc = FOCAL/rz;
+    var fade = cl01(1 - rz/4200) * cl01((rz-NEARZ)/420);
+    if (fade<=.01) continue;
+    var wob = Math.sin(wz*0.0013)*120;
+    for (var side=-1; side<=1; side+=2){
+      var px = W/2 + (wob + side*300 - camX)*sc;
+      var py = H/2 + (GROUND - camY)*sc;
+      var rr = Math.max(.7, 5.5*sc);
+      ctx.globalAlpha = fade*.55;
+      ctx.fillStyle = "#243a7a";
+      ctx.beginPath(); ctx.ellipse(px,py,rr*1.5,rr*.6,0,0,6.2832); ctx.fill();
     }
-    if (!SMALL){
-      for (var k=0;k<420;k++){
-        dust.push({ x:rnd(-900,900), y:rnd(-520,520), z:-rnd(NEAR,FAR), r:rnd(0.7,2.0) });
-      }
+    if (k%2===0){
+      var cxp = W/2 + (wob - camX)*sc;
+      var cyp = H/2 + (GROUND - camY)*sc;
+      ctx.globalAlpha = fade*.28;
+      ctx.fillStyle = "#3a55a8";
+      ctx.beginPath(); ctx.ellipse(cxp,cyp,Math.max(.6,3.4*sc)*1.6,Math.max(.5,3.4*sc)*.55,0,0,6.2832); ctx.fill();
     }
   }
+  ctx.globalAlpha=1;
 
-  function resize(){
-    DPR = Math.min(window.devicePixelRatio||1, 1.4);
-    W = window.innerWidth; H = window.innerHeight;
-    cv.width = Math.floor(W*DPR); cv.height = Math.floor(H*DPR);
-    cv.style.width = W+"px"; cv.style.height = H+"px";
-    ctx.setTransform(DPR,0,0,DPR,0,0);
+  /* --- toz --- */
+  ctx.fillStyle="rgba(30,48,110,.5)";
+  for (var d=0; d<dust.length; d++){
+    var p=dust[d], dz=p.z-camZ;
+    if (dz<NEARZ || dz>4600) continue;
+    var s2=FOCAL/dz;
+    var sx=W/2+(p.x-camX)*s2, sy=H/2+(p.y-camY)*s2;
+    if (sx<-20||sx>W+20||sy<-20||sy>H+20) continue;
+    var f=cl01(1-dz/4600)*cl01((dz-NEARZ)/300);
+    if (f<=.01) continue;
+    ctx.globalAlpha=f*.5;
+    var rr2=Math.max(.5,p.r*s2*1.4);
+    ctx.fillRect(sx,sy,rr2,rr2);
   }
+  ctx.globalAlpha=1;
 
-  function init(){
-    cv = document.getElementById("sky");
-    if (!cv || !cv.getContext) return false;
-    ctx = cv.getContext("2d");
-    if (!ctx) return false;
-    sprites = [ makeSprite(255,255,255), makeSprite(244,248,255), makeSprite(222,233,255), makeSprite(206,221,255) ];
-    seed(); resize();
-    window.addEventListener("resize", resize);
-    if (FINE){
-      window.addEventListener("mousemove", function(e){
-        tCamX = (e.clientX/W - 0.5) * 90;
-        tCamY = (e.clientY/H - 0.5) * 60;
-      }, {passive:true});
-    }
-    ok = true;
-    return true;
+  /* --- durak işaretleri + bağlantı çizgileri --- */
+  for (var i=0;i<STOPS.length;i++){
+    var st=STOPS[i], rz2=st.z-camZ;
+    if (rz2<NEARZ || rz2>5200) continue;
+    var sc2=FOCAL/rz2;
+    var mx=W/2+(st.x-camX)*sc2, my=H/2+(GROUND-camY)*sc2;
+    var cxx=W/2+(st.x-camX)*sc2, cyy=H/2+(st.y-camY)*sc2;
+    var vis=cl01(1-(rz2-2600)/2600)*cl01((rz2-NEARZ)/700);
+    if (vis<=.01) continue;
+    var col=STATUS[st.color]||STATUS.gray;
+
+    ctx.globalAlpha=vis*.55;
+    ctx.strokeStyle=col; ctx.lineWidth=Math.max(.6,1.1*Math.min(sc2,1.4));
+    ctx.beginPath(); ctx.moveTo(mx,my); ctx.lineTo(cxx,cyy); ctx.stroke();
+
+    var g=ctx.createRadialGradient(mx,my,0,mx,my,Math.max(8,70*sc2));
+    g.addColorStop(0,col+"aa"); g.addColorStop(1,col+"00");
+    ctx.globalAlpha=vis*.8;
+    ctx.fillStyle=g;
+    ctx.beginPath(); ctx.arc(mx,my,Math.max(8,70*sc2),0,6.2832); ctx.fill();
+
+    ctx.globalAlpha=vis;
+    ctx.fillStyle=col;
+    ctx.beginPath(); ctx.arc(mx,my,Math.max(2,6*sc2),0,6.2832); ctx.fill();
   }
+  ctx.globalAlpha=1;
 
-  function push(px){ vel += px * 5.5; }
-
-  function frame(dt){
-    if (!ok) return;
-    var base = REDUCE ? 0 : 108;
-    vel *= 0.90;
-    flyZ += (base + vel) * dt;
-
-    camX = lerp(camX, tCamX, 0.05);
-    camY = lerp(camY, tCamY, 0.05);
-
-    ctx.clearRect(0,0,W,H);
-    var cx = W/2, cy = H/2;
-
-    if (dust.length){
-      ctx.fillStyle = "rgba(30,48,110,.5)";
-      for (var d=0; d<dust.length; d++){
-        var p = dust[d];
-        var dz = p.z + flyZ * 0.55;
-        dz = ((dz % FAR) + FAR) % FAR;
-        if (dz < NEAR) continue;
-        var k = FOCAL / dz;
-        var sx = cx + (p.x - camX) * k, sy = cy + (p.y - camY) * k;
-        if (sx < -20 || sx > W+20 || sy < -20 || sy > H+20) continue;
-        var fade = clamp01(1 - dz/FAR) * clamp01((dz-NEAR)/260);
-        if (fade <= 0.01) continue;
-        ctx.globalAlpha = fade * 0.55;
-        var rr = Math.max(0.5, p.r * k * 0.9);
-        ctx.fillRect(sx, sy, rr, rr);
-      }
-      ctx.globalAlpha = 1;
-    }
-
-    var list = [];
-    for (var i=0;i<puffs.length;i++){
-      var q = puffs[i];
-      var z = q.z + flyZ;
-      z = ((z % FAR) + FAR) % FAR;
-      if (z < NEAR*0.5) continue;
-      list.push({ q:q, z:z });
-    }
-    list.sort(function(a,b){ return b.z - a.z; });
-
-    for (var m=0;m<list.length;m++){
-      var it = list[m], o = it.q, z = it.z;
-      var k2 = FOCAL / z;
-      var rad = o.r * k2;
-      if (rad < 2) continue;
-      var sx2 = cx + (o.x - camX) * k2, sy2 = cy + (o.y - camY) * k2;
-      if (sx2 + rad < -60 || sx2 - rad > W+60 || sy2 + rad < -60 || sy2 - rad > H+60) continue;
-      var far  = clamp01(1 - (z - FAR*0.45) / (FAR*0.55));
-      var near = clamp01((z - NEAR*0.5) / (NEAR*2.4));
-      var alpha = o.a * far * near;
-      if (alpha <= 0.012) continue;
-      ctx.globalAlpha = alpha;
-      ctx.drawImage(o.s, sx2-rad, sy2-rad, rad*2, rad*2);
-    }
-    ctx.globalAlpha = 1;
+  /* --- bulutlar (uzaktan yakına) --- */
+  var vis2=[];
+  for (var c2=0;c2<clouds.length;c2++){
+    var q=clouds[c2], cz=q.z-camZ;
+    if (cz<60 || cz>5200) continue;
+    vis2.push({q:q,z:cz});
   }
-
-  return { init:init, frame:frame, push:push, ok:function(){ return ok; } };
-})();
+  vis2.sort(function(a,b){ return b.z-a.z; });
+  for (var m=0;m<vis2.length;m++){
+    var o=vis2[m].q, z=vis2[m].z, s3=FOCAL/z, rad=o.r*s3;
+    if (rad<2) continue;
+    var sx3=W/2+(o.x-camX)*s3, sy3=H/2+(o.y-camY)*s3;
+    if (sx3+rad<-70||sx3-rad>W+70||sy3+rad<-70||sy3-rad>H+70) continue;
+    var a3=o.a*cl01(1-(z-2400)/2800)*cl01((z-60)/340);
+    if (a3<=.012) continue;
+    ctx.globalAlpha=a3;
+    ctx.drawImage(o.s, sx3-rad, sy3-rad, rad*2, rad*2);
+  }
+  ctx.globalAlpha=1;
+}
 
 /* ============================================================
-   2. Gökyüzü rengi yolculuğu
+   Durak kartlarının 3B konumlanması
    ============================================================ */
-var SKY_A = [[10,31,196],[73,100,230],[205,218,255]];
-var SKY_B = [[148,173,240],[201,216,251],[240,245,255]];
-function mixRGB(a,b,t){ return "rgb("+Math.round(lerp(a[0],b[0],t))+","+Math.round(lerp(a[1],b[1],t))+","+Math.round(lerp(a[2],b[2],t))+")"; }
-var lastSky = -1;
-function updateSky(y){
-  var t = clamp01(y / (window.innerHeight * 1.1));
-  var e = t*t*(3-2*t);
-  if (Math.abs(e - lastSky) > 0.004){
-    lastSky = e;
-    document.body.style.background =
-      "linear-gradient(to bottom,"+mixRGB(SKY_A[0],SKY_B[0],e)+" 0%,"+
-      mixRGB(SKY_A[1],SKY_B[1],e)+" 34%,"+mixRGB(SKY_A[2],SKY_B[2],e)+" 72%,#f4f7ff 100%)";
-    document.body.style.backgroundAttachment = "fixed";
-  }
-  var past = t > 0.5;
-  if (past !== document.documentElement.classList.contains("past-hero")){
-    document.documentElement.classList.toggle("past-hero", past);
+function layoutStations(){
+  var introFade = cl01((camZ-240)/440);   // giriş ekranı kaybolmadan kartlar görünmesin
+  for (var i=0;i<STOPS.length;i++){
+    var st=STOPS[i], node=st.node, rz=st.z-camZ;
+    if (rz<560 || rz>3500){ node.style.opacity=0; node.style.pointerEvents="none"; continue; }
+    var sc=FOCAL/rz;
+    var p=proj(st.x, st.y, rz);
+    var op=cl01(1-(rz-2200)/1300)*cl01((rz-560)/460)*introFade;
+    node.style.opacity=op;
+    node.style.pointerEvents = op>.55 ? "auto" : "none";
+    node.style.zIndex = String(Math.max(1, Math.round(6000 - rz)));
+    node.style.transform = "translate3d("+(p.x)+"px,"+(p.y)+"px,0) translate(-50%,-50%) scale("+(sc*0.98).toFixed(3)+")";
   }
 }
 
 /* ============================================================
-   3. Yumuşak (ataletli) kaydırma
+   Kaydırma -> yol ilerlemesi
    ============================================================ */
-var Scroller = (function(){
-  var content, spacer, cur=0, active=false;
-  function init(){
-    content = document.getElementById("scroll-content");
-    spacer  = document.getElementById("scroll-spacer");
-    if (!RICH) return false;
-    document.documentElement.classList.add("smooth");
-    active = true; resize();
-    if (window.ResizeObserver) new ResizeObserver(resize).observe(content);
-    window.addEventListener("resize", resize);
-    return true;
+function layoutSpacer(){
+  if (SMALL) return;
+  var last = FIRST_Z + Math.max(PROJECTS.length-1,0)*GAP;
+  var total = (last + 1500)/PPU + window.innerHeight;
+  document.getElementById("scroll-spacer").style.height = total+"px";
+}
+
+function currentStop(){
+  var best=0, bd=Infinity;
+  for (var i=0;i<STOPS.length;i++){
+    var d=Math.abs(STOPS[i].z-camZ-700);
+    if (d<bd){ bd=d; best=i; }
   }
-  function resize(){ if (spacer && content) spacer.style.height = content.scrollHeight+"px"; }
-  function frame(){
-    var target = window.scrollY || window.pageYOffset || 0;
-    if (!active) return target;
-    var prev = cur;
-    cur = lerp(cur, target, 0.088);
-    if (Math.abs(target-cur) < 0.06) cur = target;
-    content.style.transform = "translate3d(0,"+(-cur)+"px,0)";
-    Sky.push(Math.abs(cur-prev));
-    return cur;
-  }
-  function pos(){ return active ? cur : (window.scrollY||0); }
-  function goTo(n){ window.scrollTo(0, Math.max(0, n.getBoundingClientRect().top + pos() - 26)); }
-  return { init:init, frame:frame, pos:pos, goTo:goTo, resize:resize, isActive:function(){return active;} };
-})();
+  return best;
+}
+
+function goToStop(i){
+  var z = STOPS[i].z - 700;
+  window.scrollTo({ top: Math.max(0, z/PPU), behavior: REDUCE?"auto":"smooth" });
+}
 
 /* ============================================================
-   4. İmleç
+   Detay paneli
    ============================================================ */
+function renderKanban(ph){
+  var w=el("div","kanban");
+  [{k:"done",c:"col-done",l:"Tamamlandı"},{k:"doing",c:"col-doing",l:"Yapılıyor / Kısmi"},{k:"todo",c:"col-todo",l:"Planlanan"}]
+  .forEach(function(cc){
+    var items=ph[cc.k]||[], col=el("div","kanban-col "+cc.c);
+    col.innerHTML='<h4>'+cc.l+' <span class="count">'+items.length+'</span></h4>';
+    if(!items.length) col.appendChild(el("div","empty-note","Henüz bir şey yok."));
+    else items.forEach(function(it){ col.appendChild(el("div","kanban-item", it.title+(it.tag?'<span class="tag">'+it.tag+'</span>':""))); });
+    w.appendChild(col);
+  });
+  return w;
+}
+function renderIssues(is){
+  if(!is||!is.length) return el("div","empty-note","Bilinen bir sorun kaydedilmemiş.");
+  var t=el("table");
+  t.innerHTML='<thead><tr><th style="width:88px;">Önem</th><th>Sorun</th><th style="width:250px;">Not</th></tr></thead>';
+  var tb=el("tbody"), L={high:"Yüksek",med:"Orta",low:"Düşük"};
+  is.forEach(function(i){ tb.appendChild(el("tr",null,'<td><span class="sev '+i.severity+'">'+(L[i.severity]||i.severity)+'</span></td><td>'+i.title+'</td><td>'+(i.note||"")+'</td>')); });
+  t.appendChild(tb); return t;
+}
+function renderMatrix(ms){
+  if(!ms||!ms.length) return el("div","empty-note","Entegrasyon bilgisi henüz eklenmedi.");
+  var w=el("div","matrix");
+  ms.forEach(function(m){
+    var c=STATUS[m.status]||STATUS.gray;
+    w.appendChild(el("div","m-item",'<div class="name">'+m.name+'</div><div class="stat"><span class="dot" style="background:'+c+';box-shadow:0 0 0 3px '+c+'22;"></span>'+m.label+'</div>'));
+  });
+  return w;
+}
+function renderLog(ls){
+  var w=el("div","log");
+  (ls||[]).forEach(function(c){ w.appendChild(el("div","log-entry",'<div class="log-date">'+c.date+'</div><div class="log-title">'+c.title+'</div><div class="log-body">'+c.body+'</div>')); });
+  return w;
+}
+
+function openDetail(i){
+  var p=PROJECTS[i];
+  var panel=document.getElementById("detail-panel");
+  panel.scrollTop=0;
+  panel.innerHTML='<button class="detail-close" id="dclose" aria-label="Kapat">✕</button>'+
+    '<div class="detail-head"><h2>'+p.name+'</h2><span class="badge '+p.statusColor+'">'+p.statusLabel+'</span></div>'+
+    '<div class="detail-repo">'+(p.repoNote||"")+'</div>'+
+    '<p class="detail-desc">'+p.desc+'</p>';
+  panel.appendChild(el("div","sec-label","Aşamalar"));
+  panel.appendChild(renderKanban(p.phases||{}));
+  panel.appendChild(el("div","sec-label","Bilinen Sorunlar / Riskler"));
+  panel.appendChild(renderIssues(p.issues));
+  panel.appendChild(el("div","sec-label","Entegrasyon Durumu"));
+  panel.appendChild(renderMatrix(p.integrations));
+  panel.appendChild(el("div","sec-label","Değişiklik Günlüğü"));
+  panel.appendChild(renderLog(p.changelog));
+  document.getElementById("dclose").addEventListener("click", closeDetail);
+
+  frozenScroll = window.scrollY||0;
+  detailOpen = true;
+  var d=document.getElementById("detail");
+  d.classList.add("open"); d.setAttribute("aria-hidden","false");
+  document.documentElement.classList.add("hud-hidden");
+}
+function closeDetail(){
+  if(!detailOpen) return;
+  detailOpen=false;
+  var d=document.getElementById("detail");
+  d.classList.remove("open"); d.setAttribute("aria-hidden","true");
+  document.documentElement.classList.remove("hud-hidden");
+  if(!SMALL) window.scrollTo(0, frozenScroll);
+}
+document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeDetail(); });
+document.getElementById("detail").addEventListener("click", function(e){ if(e.target===this) closeDetail(); });
+
+/* ============================================================
+   Kurulum
+   ============================================================ */
+function miniCounts(p){
+  var ph=p.phases||{};
+  return { d:(ph.done||[]).length, g:(ph.doing||[]).length, t:(ph.todo||[]).length };
+}
+
+function buildStations(){
+  var host=document.getElementById("stations");
+  host.innerHTML="";
+  STOPS.length=0;
+  PROJECTS.forEach(function(p,i){
+    var col=STATUS[p.statusColor]||STATUS.gray;
+    var mc=miniCounts(p);
+    var none=(p.progress===null||p.progress===undefined);
+    var node=el("div","station");
+    node.innerHTML=
+      '<div class="box">'+
+        '<div class="num">DURAK '+pad2(i+1)+'</div>'+
+        '<h3>'+p.name+'</h3>'+
+        '<span class="badge '+p.statusColor+'">'+p.statusLabel+'</span>'+
+        '<div class="mini"><span><b>'+mc.d+'</b> tamamlandı</span><span><b>'+mc.g+'</b> yapılıyor</span><span><b>'+mc.t+'</b> planlanan</span></div>'+
+        (none
+          ? '<div class="progress-row"><div class="progress-track"><div class="progress-fill" style="width:100%;background:'+col+';opacity:.26;"></div></div><div class="progress-pct">—</div></div>'
+          : '<div class="progress-row"><div class="progress-track"><div class="progress-fill" style="width:'+p.progress+'%;background:'+col+';"></div></div><div class="progress-pct">%'+p.progress+'</div></div>')+
+        '<div class="open">Detayı aç <span class="ar">→</span></div>'+
+      '</div>';
+    node.addEventListener("click", function(){ openDetail(i); });
+    host.appendChild(node);
+    STOPS.push({
+      node:node,
+      z: FIRST_Z + i*GAP,
+      x: (i%2===0? -1: 1) * 330 + Math.sin(i*1.3)*70,
+      y: -150 + Math.sin(i*0.9)*60,
+      color: p.statusColor
+    });
+  });
+}
+
+function buildRail(){
+  var r=document.getElementById("rail");
+  r.innerHTML="";
+  PROJECTS.forEach(function(p,i){
+    var b=el("button",null,'<span class="dot" style="border-color:'+(STATUS[p.statusColor]||STATUS.gray)+'"></span><span class="t">'+p.name+'</span>');
+    b.addEventListener("click", function(){ goToStop(i); });
+    r.appendChild(b);
+  });
+  document.getElementById("counter-tot").textContent = "/ "+pad2(PROJECTS.length)+" durak";
+}
+
+function buildMobile(){
+  var host=document.getElementById("mobile-list");
+  host.innerHTML='<div class="mhead">Duraklar</div>';
+  PROJECTS.forEach(function(p,i){
+    var col=STATUS[p.statusColor]||STATUS.gray;
+    var mc=miniCounts(p);
+    var none=(p.progress===null||p.progress===undefined);
+    var c=el("div","mcard");
+    c.innerHTML='<div class="num" style="font-size:11px;color:var(--ink-soft);letter-spacing:.1em;">DURAK '+pad2(i+1)+'</div>'+
+      '<h3>'+p.name+'</h3><span class="badge '+p.statusColor+'">'+p.statusLabel+'</span>'+
+      '<div class="mini" style="display:flex;gap:14px;font-size:11px;color:var(--ink-dim);margin:12px 0;"><span><b>'+mc.d+'</b> tamamlandı</span><span><b>'+mc.g+'</b> yapılıyor</span><span><b>'+mc.t+'</b> planlanan</span></div>'+
+      (none? '<div class="progress-row"><div class="progress-track"><div class="progress-fill" style="width:100%;background:'+col+';opacity:.26;"></div></div><div class="progress-pct">—</div></div>'
+           : '<div class="progress-row"><div class="progress-track"><div class="progress-fill" style="width:'+p.progress+'%;background:'+col+';"></div></div><div class="progress-pct">%'+p.progress+'</div></div>')+
+      '<div class="open" style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin-top:14px;">Detayı aç →</div>';
+    c.addEventListener("click", function(){ openDetail(i); });
+    host.appendChild(c);
+  });
+}
+
 function initCursor(){
-  if (!FINE || REDUCE) return;
+  if(!FINE||REDUCE||SMALL) return;
   var dot=document.getElementById("cur"), ring=document.getElementById("cur-ring");
   var dx=0,dy=0,rx=0,ry=0,tx=0,ty=0;
   document.documentElement.classList.add("cur-on");
-  window.addEventListener("mousemove", function(e){ tx=e.clientX; ty=e.clientY; }, {passive:true});
-  document.addEventListener("mouseover", function(e){
+  window.addEventListener("mousemove",function(e){ tx=e.clientX; ty=e.clientY; },{passive:true});
+  document.addEventListener("mouseover",function(e){
     var t=e.target;
-    if (t && t.closest && t.closest("a,button,.kanban-item,.m-item")) ring.classList.add("big");
-    else ring.classList.remove("big");
+    if(t&&t.closest&&t.closest(".station,button,a,.mcard")) ring.classList.add("big"); else ring.classList.remove("big");
   });
   (function loop(){
     dx=lerp(dx,tx,.85); dy=lerp(dy,ty,.85); rx=lerp(rx,tx,.15); ry=lerp(ry,ty,.15);
@@ -462,226 +617,105 @@ function initCursor(){
   })();
 }
 
-/* ============================================================
-   5. Görünürlükte açılma
-   ============================================================ */
-var io=null;
-function initReveal(){
-  if (!("IntersectionObserver" in window) || REDUCE){
-    Array.prototype.forEach.call(document.querySelectorAll(".reveal,.mask"), function(n){
-      n.classList.add("in");
-      var b=n.querySelector? n.querySelector(".progress-fill[data-w]") : null;
-      if (b) b.style.width = b.getAttribute("data-w")+"%";
-    });
-    return;
-  }
-  io = new IntersectionObserver(function(es){
-    es.forEach(function(en){
-      if (!en.isIntersecting) return;
-      en.target.classList.add("in");
-      var b = en.target.querySelector ? en.target.querySelector(".progress-fill[data-w]") : null;
-      if (b) b.style.width = b.getAttribute("data-w")+"%";
-      io.unobserve(en.target);
-    });
-  }, { threshold:0.08, rootMargin:"0px 0px -50px 0px" });
-  observeAll();
-}
-function observeAll(){
-  if (!io) return;
-  Array.prototype.forEach.call(document.querySelectorAll(".reveal:not(.in),.mask:not(.in)"), function(n){ io.observe(n); });
-}
-
-/* ============================================================
-   6. Kart eğilmesi
-   ============================================================ */
-function attachTilt(node, deg){
-  if (!FINE || REDUCE) return;
-  var d = deg||6;
-  node.addEventListener("mousemove", function(e){
-    var r=node.getBoundingClientRect();
-    var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
-    node.style.transform="perspective(1000px) rotateX("+((0.5-py)*d*2)+"deg) rotateY("+((px-0.5)*d*2)+"deg) translateZ(14px)";
-    node.style.setProperty("--mx",(px*100)+"%");
-    node.style.setProperty("--my",(py*100)+"%");
-  });
-  node.addEventListener("mouseleave", function(){
-    node.style.transform="perspective(1000px) rotateX(0) rotateY(0) translateZ(0)";
-  });
-}
-
-/* ============================================================
-   7. Render
-   ============================================================ */
-function renderHero(site){
-  var clean = String(site.title||"Proje Takip Panosu").replace(/^[^A-Za-zÀ-ÿĞğİıŞşÇçÖöÜü0-9]+/,"");
-  document.getElementById("hero-title").textContent = clean;
-  document.getElementById("hero-lede").textContent = site.subtitle||"";
-  document.getElementById("corner-updated").textContent = "Son güncelleme — "+(site.updated||"");
-  document.title = clean+" — Iglesias Tour Turkey";
-  if (site.banner){
-    document.getElementById("banner").innerHTML =
-      '<div class="alert reveal"><div class="icon">'+site.banner.icon+'</div>'+
-      '<div><b>'+site.banner.title+'</b><p>'+site.banner.text+'</p></div></div>';
+/* --- gökyüzü rengi --- */
+var SKY_A=[[10,31,196],[73,100,230],[205,218,255]], SKY_B=[[150,175,240],[201,216,251],[240,245,255]];
+function mixRGB(a,b,t){ return "rgb("+Math.round(lerp(a[0],b[0],t))+","+Math.round(lerp(a[1],b[1],t))+","+Math.round(lerp(a[2],b[2],t))+")"; }
+var lastE=-1;
+function updateSky(){
+  var t=cl01(camZ/1500), e=t*t*(3-2*t);
+  if(Math.abs(e-lastE)>.005){
+    lastE=e;
+    document.body.style.background="linear-gradient(to bottom,"+mixRGB(SKY_A[0],SKY_B[0],e)+" 0%,"+
+      mixRGB(SKY_A[1],SKY_B[1],e)+" 32%,"+mixRGB(SKY_A[2],SKY_B[2],e)+" 70%,#f4f7ff 100%)";
+    document.body.style.backgroundAttachment="fixed";
   }
 }
 
-function renderOverviewCard(p, idx){
-  var card = el("a","card reveal");
-  card.href = "#proj-"+p.id;
-  card.style.transitionDelay = (idx*0.07)+"s";
-  var col = STATUS_DOT[p.statusColor] || STATUS_DOT.gray;
-  var none = (p.progress===null || p.progress===undefined);
-  var bar = none
-    ? '<div class="progress-row"><div class="progress-track"><div class="progress-fill" data-w="100" style="background:'+col+';opacity:.26;"></div></div><div class="progress-pct">—</div></div>'
-    : '<div class="progress-row"><div class="progress-track"><div class="progress-fill" data-w="'+p.progress+'" style="background:'+col+';"></div></div><div class="progress-pct">%'+p.progress+'</div></div>';
-  card.innerHTML =
-    '<div class="num">'+(idx+1<10?"0":"")+(idx+1)+'</div>'+
-    '<h3>'+p.name+'</h3>'+
-    '<div class="bwrap"><span class="badge '+p.statusColor+'">'+p.statusLabel+'</span></div>'+
-    '<p class="desc">'+p.desc+'</p>'+bar;
-  attachTilt(card,6);
-  return card;
-}
+/* --- ana döngü --- */
+function tick(){
+  if(!SMALL){
+    if(!detailOpen) targetZ = (window.scrollY||0) * PPU;
+    camZ = lerp(camZ, targetZ, .085);
+    if(Math.abs(targetZ-camZ)<.4) camZ=targetZ;
+    camX = lerp(camX, tCamX, .05);
+    camY = lerp(camY, tCamY, .05);
 
-function renderKanban(phases){
-  var wrap = el("div","kanban");
-  [{k:"done",c:"col-done",l:"Tamamlandı"},{k:"doing",c:"col-doing",l:"Yapılıyor / Kısmi"},{k:"todo",c:"col-todo",l:"Planlanan"}]
-  .forEach(function(cc){
-    var items = phases[cc.k]||[];
-    var col = el("div","kanban-col "+cc.c);
-    col.innerHTML = '<h4>'+cc.l+' <span class="count">'+items.length+'</span></h4>';
-    if (!items.length) col.appendChild(el("div","empty-note","Henüz bir şey yok."));
-    else items.forEach(function(it){
-      col.appendChild(el("div","kanban-item", it.title + (it.tag ? '<span class="tag">'+it.tag+'</span>' : "")));
-    });
-    wrap.appendChild(col);
-  });
-  return wrap;
-}
+    var introOp = cl01(1 - camZ/620);
+    var intro=document.getElementById("intro");
+    intro.style.opacity=introOp;
+    intro.style.pointerEvents = introOp>.35 ? "none" : "none";
+    intro.querySelector("#intro-banner").style.pointerEvents = introOp>.5 ? "auto":"none";
+    document.documentElement.classList.toggle("intro-mode", introOp>.5);
 
-function renderIssues(issues){
-  if (!issues || !issues.length) return el("div","empty-note","Bilinen bir sorun kaydedilmemiş.");
-  var t = el("table");
-  t.innerHTML = '<thead><tr><th style="width:92px;">Önem</th><th>Sorun</th><th style="width:340px;">Not</th></tr></thead>';
-  var tb = el("tbody"), L={high:"Yüksek",med:"Orta",low:"Düşük"};
-  issues.forEach(function(i){
-    tb.appendChild(el("tr",null,'<td><span class="sev '+i.severity+'">'+(L[i.severity]||i.severity)+'</span></td><td>'+i.title+'</td><td>'+(i.note||"")+'</td>'));
-  });
-  t.appendChild(tb);
-  return t;
-}
+    var lastZ = FIRST_Z + Math.max(PROJECTS.length-1,0)*GAP;
+    var out=document.getElementById("outro");
+    var outOp = cl01((camZ - (lastZ+520))/620);
+    out.style.opacity=outOp;
+    out.style.pointerEvents = outOp>.6 ? "auto":"none";
 
-function renderMatrix(ints){
-  if (!ints || !ints.length) return el("div","empty-note","Entegrasyon bilgisi henüz eklenmedi.");
-  var w = el("div","matrix");
-  ints.forEach(function(m){
-    var c = STATUS_DOT[m.status]||STATUS_DOT.gray;
-    w.appendChild(el("div","m-item",'<div class="name">'+m.name+'</div><div class="stat"><span class="dot" style="background:'+c+';box-shadow:0 0 0 3px '+c+'22;"></span>'+m.label+'</div>'));
-  });
-  return w;
-}
+    var idx=currentStop();
+    if(idx!==activeIdx){
+      activeIdx=idx;
+      var bs=document.querySelectorAll("#rail button");
+      for(var i=0;i<bs.length;i++) bs[i].classList.toggle("on", i===idx);
+      document.getElementById("counter-num").textContent=pad2(idx+1);
+    }
 
-function renderLog(log){
-  var w = el("div","log");
-  (log||[]).forEach(function(c){
-    w.appendChild(el("div","log-entry",'<div class="log-date">'+c.date+'</div><div class="log-title">'+c.title+'</div><div class="log-body">'+c.body+'</div>'));
-  });
-  return w;
-}
-
-function renderProjectSection(p){
-  var s = el("section","proj-section reveal");
-  s.id = "proj-"+p.id;
-  s.innerHTML =
-    '<div class="proj-head"><h2>'+p.name+'</h2><span class="badge '+p.statusColor+'">'+p.statusLabel+'</span></div>'+
-    '<div class="proj-repo">'+(p.repoNote||"")+'</div>'+
-    '<p class="proj-desc">'+p.desc+'</p>';
-  s.appendChild(el("div","sec-label","Aşamalar"));
-  s.appendChild(renderKanban(p.phases||{}));
-  s.appendChild(el("div","sec-label","Bilinen Sorunlar / Riskler"));
-  s.appendChild(renderIssues(p.issues));
-  s.appendChild(el("div","sec-label","Entegrasyon Durumu"));
-  s.appendChild(renderMatrix(p.integrations));
-  s.appendChild(el("div","sec-label","Değişiklik Günlüğü"));
-  s.appendChild(renderLog(p.changelog));
-  return s;
-}
-
-function buildNav(projects){
-  var nav = document.getElementById("corner-nav");
-  nav.innerHTML = "";
-  projects.forEach(function(p){
-    var label = p.name.length>28 ? p.name.slice(0,26)+"…" : p.name;
-    var a = el("a", null, '<span class="lbl">'+label+'</span><span class="dash"></span>');
-    a.href = "#proj-"+p.id;
-    a.setAttribute("title", p.name);
-    nav.appendChild(a);
-  });
-}
-
-document.addEventListener("click", function(e){
-  var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
-  if (!a) return;
-  var node = document.getElementById(a.getAttribute("href").slice(1));
-  if (!node) return;
-  e.preventDefault();
-  if (Scroller.isActive()) Scroller.goTo(node);
-  else node.scrollIntoView({ behavior: REDUCE ? "auto" : "smooth" });
-});
-
-/* ============================================================
-   8. Başlangıç
-   ============================================================ */
-var lastT = 0;
-function tick(now){
-  var dt = Math.min(0.05, (now-lastT)/1000) || 0.016;
-  lastT = now;
-  updateSky(Scroller.frame());
-  Sky.frame(dt);
+    updateSky();
+    drawScene();
+    layoutStations();
+  }
   requestAnimationFrame(tick);
 }
 
 async function main(){
-  Sky.init();
-  initCursor();
+  cv=document.getElementById("road");
+  if(cv&&cv.getContext) ctx=cv.getContext("2d");
+  sprites=[makeSprite(255,255,255),makeSprite(244,248,255),makeSprite(222,233,255),makeSprite(206,221,255)];
 
-  var r = await Promise.all([
-    fetch("site.json").then(function(x){ return x.json(); }),
-    fetch("projects/manifest.json").then(function(x){ return x.json(); })
+  var r=await Promise.all([
+    fetch("site.json").then(function(x){return x.json();}),
+    fetch("projects/manifest.json").then(function(x){return x.json();})
   ]);
-  var site = r[0], manifest = r[1];
-  renderHero(site);
+  var site=r[0], manifest=r[1];
 
-  var projects = await Promise.all(manifest.map(function(f){
-    return fetch("projects/"+f).then(function(x){ return x.json(); });
+  PROJECTS = await Promise.all(manifest.map(function(f){
+    return fetch("projects/"+f).then(function(x){return x.json();});
   }));
 
-  buildNav(projects);
+  var clean=String(site.title||"Proje Takip Panosu").replace(/^[^A-Za-zÀ-ÿĞğİıŞşÇçÖöÜü0-9]+/,"");
+  document.getElementById("intro-title").textContent=clean;
+  document.getElementById("intro-lede").textContent=site.subtitle||"";
+  document.getElementById("corner-updated").textContent="Son güncelleme — "+(site.updated||"");
+  document.title=clean+" — Iglesias Tour Turkey";
+  if(site.banner){
+    document.getElementById("intro-banner").innerHTML=
+      '<div class="alert"><div style="font-size:19px;line-height:1.2;">'+site.banner.icon+'</div>'+
+      '<div><b>'+site.banner.title+'</b><p>'+site.banner.text+'</p></div></div>';
+  }
 
-  var ov = document.getElementById("overview-cards");
-  ov.innerHTML = "";
-  projects.forEach(function(p,i){ ov.appendChild(renderOverviewCard(p,i)); });
+  buildStations(); buildRail(); buildMobile();
+  seedScene();
+  if(ctx){ resize(); window.addEventListener("resize", resize); }
+  else layoutSpacer();
+  layoutSpacer();
 
-  var sec = document.getElementById("project-sections");
-  sec.innerHTML = "";
-  projects.forEach(function(p){ sec.appendChild(renderProjectSection(p)); });
+  if(FINE&&!SMALL){
+    window.addEventListener("mousemove",function(e){
+      tCamX=(e.clientX/W-.5)*150; tCamY=(e.clientY/H-.5)*90;
+    },{passive:true});
+  }
+  document.getElementById("back-top").addEventListener("click",function(){
+    window.scrollTo({top:0, behavior:REDUCE?"auto":"smooth"});
+  });
 
-  initReveal();
-  Scroller.init();
-  Scroller.resize();
-  setTimeout(Scroller.resize, 500);
-
-  setTimeout(function(){
-    Array.prototype.forEach.call(document.querySelectorAll(".hero .mask,.hero .reveal"), function(n){ n.classList.add("in"); });
-  }, 180);
-
+  initCursor();
   requestAnimationFrame(tick);
 }
 
 main().catch(function(err){
-  requestAnimationFrame(tick);
-  document.getElementById("project-sections").innerHTML =
-    '<div id="loading">Veri yüklenemedi: '+err.message+'. Bu sayfayı bir HTTP sunucusu üzerinden açtığınızdan emin olun (GitHub Pages veya <code>python3 -m http.server</code>) — dosyayı doğrudan (file://) açmak fetch() isteklerini engeller.</div>';
+  document.getElementById("intro-lede").textContent =
+    "Veri yüklenemedi: "+err.message+" — bu sayfayı bir HTTP sunucusu üzerinden açın (GitHub Pages veya python3 -m http.server).";
 });
 </script>
 </body>
